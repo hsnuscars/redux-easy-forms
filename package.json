@@ -1,6 +1,6 @@
 {
   "name": "redux-easy-forms",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "REForms: A React-Redux forms library for the people!",
   "keywords": [
     "form",

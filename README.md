@@ -40,7 +40,6 @@ const fields = {
     password: { type: 'password' }                  // unique field key, per each input name
     email:    {},                                   // empty obj ok, assumes input type of "text"
     phone:    { validators: phoneValidators },      // can specify validator, filters..
-
   },                           
   profileForm: {
     gender:   { type: 'radio', value: 'female' },   // can set init value, other props
@@ -70,7 +69,7 @@ The enhanced component automatically gets `this.props.REForms`.
 The `REForms` prop provides a handy API to your forms data:
 
 ```js
-const f = this.props.REForms;                       // TIP: acquire a short reference to the API
+const f = this.props.REForms;   // TIP: acquire a short reference to the API
 ```
 
 Now, let's say you want to render the `email` input, all you need is:

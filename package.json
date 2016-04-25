@@ -15,6 +15,7 @@
   ],
   "author": "Peter Morawiec",
   "license": "MIT",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/moarwick/redux-easy-forms"

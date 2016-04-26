@@ -26,8 +26,6 @@ class App extends React.Component {
       setError:     '',
       checkedValue: 'running'
     };
-
-    // this._handleSet = this._handleSet.bind( this );
   }
 
   render() {
@@ -39,8 +37,10 @@ class App extends React.Component {
     return (
       <div>
         <div style={ styles.header }>
-          <div style={ styles.headerTitle }>REForms API Playground</div>
-
+          <Grid>
+            <a style={ styles.gitHub } href="https://github.com/moarwick/redux-easy-forms">GitHub &raquo;</a>
+            <div style={ styles.headerTitle }>REForms API Playground</div>
+          </Grid>
         </div>
 
         <Grid>
@@ -95,10 +95,11 @@ class App extends React.Component {
               </FormGroup>
 
               <hr />
+                For 'select' and 'textarea' inputs,
 
               { method === 'props' &&
                 <div>
-                  <p style={ styles.docs }>Get all REForms props for a given input field. For <em>select</em> and <em>textarea</em> inputs, the <em>type</em> prop is not returned.</p>
+                  <p style={ styles.docs }>Get all REForms props for a given input field. For <em>select</em> and <em>textarea</em> inputs, the prop <em>componentClass</em> (React-Bootstrap specific) replaces <em>type</em> (causes warnings in Chrome).</p>
                   <pre style={ styles.code }>
                     <span style={ styles.fn }>{ `f.props( '${ this.state.fieldKey }' )` }</span>
                     { this._renderSelectField() }
@@ -528,11 +529,12 @@ const styles = {
     height:          70,
     paddingTop:      12
   },
+  gitHub: {
+    float: 'right',
+    color: '#F0D294'
+  },
   headerTitle: {
     fontSize:  32
-  },
-  docs: {
-    // color:      'maroon',
   },
   code: {
     backgroundColor: '#EEF'

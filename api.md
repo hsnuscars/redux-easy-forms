@@ -18,11 +18,11 @@
 
 #### props(fieldKey, [formKey]) ⇒ <code>Object</code>
 Get all relevant props for a given input field.
-For 'select' and 'textarea' inputs, the 'type' prop is not returned.
+For 'select' and 'textarea' inputs, the prop 'componentClass' (React-Bootstrap specific) replaces 'type' (causes warnings in Chrome).
 
 **Example**: <code>f.props( 'email', 'userForm' )</code>
 
-**Returns**: <code>Object</code> - Object containing props, or an empty object  
+**Returns**: <code>Object</code> - Object containing all props, or an empty 'value' prop only
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ The desired 'checkedValue' must be specified to determines the status of the 'ch
 
 **Example**: <code>f.propsChecked( 'sports', 'running', 'profileForm' )</code>
 
-**Returns**: <code>Object</code> - Object containing props, or an empty object  
+**Returns**: <code>Object</code> - Object containing all props, or an empty 'value' prop only  
 
 | Param | Type | Description |
 | --- | --- | --- |

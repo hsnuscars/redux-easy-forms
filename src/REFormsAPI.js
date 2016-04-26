@@ -21,10 +21,10 @@ const WARN_SET_SERVER_ERRORS = 'REForms.setFormPristine: No field to set server 
  * Example: f.props( 'email', 'userForm' )
  * @param   {string} fieldKey  - The key of the requested field
  * @param   {string} [formKey] - The field's formKey (optional, recommended)
- * @returns {Object} Object containing props, or an empty object
+ * @returns {Object} Object containing props, or the 'value' prop only (empty string)
  */
 export function props( context, fieldKey='', formKey='' ) {
-  let props = _getFieldProps( context, fieldKey, { formKey } );
+  const props = _getFieldProps( context, fieldKey, { formKey } );
 
   // custom behavior for 'select' & 'textarea' inputs:
   // - add 'componentClass' for React BS
@@ -34,6 +34,9 @@ export function props( context, fieldKey='', formKey='' ) {
     delete props.type;
   }
 
+  // HACK: at a minimum, return 'value', otherwise React throws "controlled input" warning..
+  if ( __.isEmpty( props ) ) { props.value = ''; }
+  
   return props;
 }
 
@@ -45,10 +48,15 @@ export function props( context, fieldKey='', formKey='' ) {
  * @param   {string}            fieldKey     - The key of the requested field
  * @param   {(string|string[])} checkedValue - Desired value when input is 'checked'
  * @param   {string}            [formKey]    - The field's formKey (optional, recommended)
- * @returns {Object}            Object containing props, or an empty object
+ * @returns {Object}            Object containing props, or the 'value' prop only (empty string)
  */
 export function propsChecked( context, fieldKey='', checkedValue='', formKey='' ) {
-  return _getFieldProps( context, fieldKey, { checkedValue, formKey } );
+  const props = _getFieldProps( context, fieldKey, { checkedValue, formKey } );
+  
+  // HACK: at a minimum, return 'value', otherwise React throws "controlled input" warning..
+  if ( __.isEmpty( props ) ) { props.value = ''; }
+  
+  return props;
 }
 
 

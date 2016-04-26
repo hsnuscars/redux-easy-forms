@@ -95,7 +95,6 @@ class App extends React.Component {
               </FormGroup>
 
               <hr />
-                For 'select' and 'textarea' inputs,
 
               { method === 'props' &&
                 <div>

@@ -75,7 +75,7 @@ export default function REFormsEnhance( Component, schema ) {
  * Add remaining expected state-related props to each field in schema
  * Return a new object, containing both data and fns
  */
-function _parseSchema( schema ) {
+export function _parseSchema( schema ) {
   let data = { ...schema };
   let fns  = {};
 

@@ -36,7 +36,7 @@ export function props( libData, fieldKey='', formKey='' ) {
 
   // HACK: at a minimum, return 'value', otherwise React throws "controlled input" warning..
   if ( __.isEmpty( props ) ) { props.value = ''; }
-  
+
   return props;
 }
 
@@ -52,10 +52,10 @@ export function props( libData, fieldKey='', formKey='' ) {
  */
 export function propsChecked( libData, fieldKey='', checkedValue='', formKey='' ) {
   const props = _getFieldProps( libData, fieldKey, { checkedValue, formKey } );
-  
+
   // HACK: at a minimum, return 'value', otherwise React throws "controlled input" warning..
   if ( __.isEmpty( props ) ) { props.value = ''; }
-  
+
   return props;
 }
 
@@ -451,9 +451,9 @@ function _makeFieldUnsetList( libData, fieldQuery, formKey ) {
   const fieldKeyList = __.toArray( fieldQuery );
 
   fieldKeyList.forEach( ( fieldKey ) => {
-    const props   = _getFieldProps( libData, fieldKey, { formKey, pick: [ 'multiple', 'valueOrig' ] } );
-    const { multiple, valueOrig } = props;
-    const value   = multiple ? [ ...valueOrig ] : valueOrig;
+    const props   = _getFieldProps( libData, fieldKey, { formKey, pick: [ 'multiple', 'valuePristine' ] } );
+    const { multiple, valuePristine } = props;
+    const value   = multiple ? [ ...valuePristine ] : valuePristine;
     const setData = { [ fieldKey ]: { value, touched: false } };
     fieldSetList  = [ ...fieldSetList, ..._makeFieldObjList( libData, setData, 'value', formKey ) ];
   });

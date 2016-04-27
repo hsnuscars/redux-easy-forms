@@ -41,7 +41,7 @@ export default function REFormsReducer( state={}, action ) {
         // when 'dirty' is being explicitly updated to 'false', means we're setting 'pristine'
         // the actual 'dirty' flag is determined way below..
         if ( 'dirty' in newProps && newProps.dirty === false ) {
-          fieldObj.valueOrig = fieldObj.multiple ? [ ...fieldObj.value ] : fieldObj.value;
+          fieldObj.valuePristine = fieldObj.multiple ? [ ...fieldObj.value ] : fieldObj.value;
           fieldObj.touched   = false;
         }
 
@@ -88,9 +88,9 @@ export default function REFormsReducer( state={}, action ) {
           fieldObj.errors = _validate( valueIn, validators );
         }
 
-        // determine status of 'dirty' based on current valueOrig
-        const { multiple, valueOrig } = fieldObj;
-        fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, valueOrig ) : fieldObj.value !== valueOrig;
+        // determine status of 'dirty' based on current valuePristine
+        const { multiple, valuePristine } = fieldObj;
+        fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, valuePristine ) : fieldObj.value !== valuePristine;
 
         // update field in state copy!
         // TODO: do we even need ...rest here?

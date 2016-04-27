@@ -99,7 +99,7 @@ export function _parseSchema( schema ) {
 
       // store initial value under 'origValue'
       const value = data[ formKey ][ fieldKey ].value;
-      data[ formKey ][ fieldKey ].valueOrig = fieldObj.multiple ? [ ...value ] : value;       // make a copy for arrays
+      data[ formKey ][ fieldKey ].valuePristine = fieldObj.multiple ? [ ...value ] : value;       // make a copy for arrays
 
     });
   });

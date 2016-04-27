@@ -42,7 +42,6 @@ const schemaErrors = {
   emailsForm: {
     emailCorrect:   { type: 'text', value: 'correct@example.com', validators: emailValidators },
     emailIncorrect: { type: 'text', value: 'incorrect', validators: emailValidators },
-    emailEmpty:     { type: 'text', value: '', validators: emailValidators }
   }
 };
 

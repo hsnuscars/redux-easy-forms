@@ -97,7 +97,7 @@ export function _parseSchema( schema ) {
       // backfill with default state-related props
       data[ formKey ][ fieldKey ] = { ..._getDefaultProps( fieldObj.type, fieldObj.multiple ), ...fieldObj };
 
-      // store initial value under 'origValue'
+      // store initial value under 'valuePristine'
       const value = data[ formKey ][ fieldKey ].value;
       data[ formKey ][ fieldKey ].valuePristine = fieldObj.multiple ? [ ...value ] : value;       // make a copy for arrays
 

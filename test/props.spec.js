@@ -18,9 +18,9 @@ describe( 'props()', () => {
       valuePristine: '',
       valueIn:       '',
       valueOut:      '',
-      onFocus:       true,   // if function
-      onChange:      true,   // if function
-      onBlur:        true    // if function
+      onFocus:       true,    // if function
+      onChange:      true,    // if function
+      onBlur:        true     // if function
     };
 
     const actual = props( libData, 'email' );

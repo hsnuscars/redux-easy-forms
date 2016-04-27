@@ -78,7 +78,7 @@ export function error( libData, fieldKey='', formKey='' ) {
   const serverError     = !focused && serverErrors && serverErrors.length ? serverErrors[ 0 ] : '';
   const validationError = !focused && touched && errors && errors.length ? props.errors[ 0 ] : '';
   const error           = serverError ? serverError : validationError;
-
+  
   return error;
 }
 

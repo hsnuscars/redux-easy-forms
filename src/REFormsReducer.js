@@ -23,7 +23,7 @@ export default function REFormsReducer( state={}, action ) {
      */
     case REFORMS_UPDATE_FIELDS:
       const { fieldUpdateList, fns } = action;
-      const stateCopy = { ...state };                         // TODO: do a one-level deep copy here
+      const stateClone = __.cloneObject( state );
 
       fieldUpdateList.forEach( ( newProps ) => {
         const { formKey, fieldKey, value, ...rest } = newProps;
@@ -32,7 +32,7 @@ export default function REFormsReducer( state={}, action ) {
         const filters    = fns[ formKey ][ fieldKey ].filters || {};
 
         // reference correct field obj
-        const fieldObj = stateCopy[ formKey ][ fieldKey ];
+        const fieldObj = stateClone[ formKey ][ fieldKey ];
 
         // change status flags only if present in new props
         if ( 'focused' in newProps ) { fieldObj.focused = newProps.focused; }
@@ -95,11 +95,11 @@ export default function REFormsReducer( state={}, action ) {
         // update field in state copy!
         // TODO: do we even need ...rest here?
         // TODO: if so, should validate obj keys against supported props only, otherwise set can intro garb props!
-        stateCopy[ formKey ][ fieldKey ] = { ...rest, ...fieldObj };
+        stateClone[ formKey ][ fieldKey ] = { ...rest, ...fieldObj };
 
       });
 
-      return stateCopy;
+      return stateClone;
 
 
     /*
@@ -116,17 +116,17 @@ export default function REFormsReducer( state={}, action ) {
  * Set any error messages into the errors prop (array), return updated forms data
  */
 function _validateAll( data, fns ) {
-  let stateCopy = { ...data };
+  let dataClone = __.cloneObject( data );
 
-  Object.keys( stateCopy ).forEach( ( formKey ) => {
-    Object.keys( stateCopy[ formKey ] ).forEach( ( fieldKey ) => {
-      let fieldObj     = stateCopy[ formKey ][ fieldKey ];
+  Object.keys( dataClone ).forEach( ( formKey ) => {
+    Object.keys( dataClone[ formKey ] ).forEach( ( fieldKey ) => {
+      let fieldObj     = dataClone[ formKey ][ fieldKey ];
       const validators = fns[ formKey ][ fieldKey ].validators;
       fieldObj.errors  = _validate( fieldObj.value, validators );
     });
   });
 
-  return stateCopy;
+  return dataClone;
 }
 
 

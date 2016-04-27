@@ -27,7 +27,8 @@
     "dist": "node_modules/webpack/bin/webpack.js --config webpack.dist.js",
     "docs": "node_modules/jsdoc-to-markdown/bin/cli.js -t docsTemplate.hbs src/REFormsAPI.js > _api.md",
     "prepublish": "npm run dist",
-    "test": "karma start"
+    "test": "NODE_ENV=test mocha --watch --compilers js:babel-core/register test/*.spec.js",
+    "karma": "karma start"
   },
   "browserify": {
     "transform": [

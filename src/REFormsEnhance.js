@@ -31,31 +31,31 @@ export default function REFormsEnhance( Component, schema ) {
     render() {
       const { REForms, dispatch, ...rest } = this.props;
 
-      // Supply Redux state (data), user's fns, and dispatch to all methods (as 'context')
-      const context = {
+      // Supply Redux state (data), user's fns, and dispatch to all methods (as 'libData')
+      const libData = {
         data:     REForms,
         fns:      this.fns,
         dispatch: dispatch
       };
 
       const enhancedAPI = {
-        props:           _apiEnhance( api.props,           context ),
-        propsChecked:    _apiEnhance( api.propsChecked,    context ),
-        error:           _apiEnhance( api.error,           context ),
-        validationState: _apiEnhance( api.validationState, context ),
-        get:             _apiEnhance( api.get,             context ),
-        getForm:         _apiEnhance( api.getForm,         context ),
-        set:             _apiEnhance( api.set,             context ),
-        unset:           _apiEnhance( api.unset,           context ),
-        unsetForm:       _apiEnhance( api.unsetForm,       context ),
-        clear:           _apiEnhance( api.clear,           context ),
-        clearForm:       _apiEnhance( api.clearForm,       context ),
-        isValid:         _apiEnhance( api.isValid,         context ),
-        isFormValid:     _apiEnhance( api.isFormValid,     context ),
-        isFormDirty:     _apiEnhance( api.isFormDirty,     context ),
-        setPristine:     _apiEnhance( api.setPristine,     context ),
-        setFormPristine: _apiEnhance( api.setFormPristine, context ),
-        setServerErrors: _apiEnhance( api.setServerErrors, context )
+        props:           _apiEnhance( api.props,           libData ),
+        propsChecked:    _apiEnhance( api.propsChecked,    libData ),
+        error:           _apiEnhance( api.error,           libData ),
+        validationState: _apiEnhance( api.validationState, libData ),
+        get:             _apiEnhance( api.get,             libData ),
+        getForm:         _apiEnhance( api.getForm,         libData ),
+        set:             _apiEnhance( api.set,             libData ),
+        unset:           _apiEnhance( api.unset,           libData ),
+        unsetForm:       _apiEnhance( api.unsetForm,       libData ),
+        clear:           _apiEnhance( api.clear,           libData ),
+        clearForm:       _apiEnhance( api.clearForm,       libData ),
+        isValid:         _apiEnhance( api.isValid,         libData ),
+        isFormValid:     _apiEnhance( api.isFormValid,     libData ),
+        isFormDirty:     _apiEnhance( api.isFormDirty,     libData ),
+        setPristine:     _apiEnhance( api.setPristine,     libData ),
+        setFormPristine: _apiEnhance( api.setFormPristine, libData ),
+        setServerErrors: _apiEnhance( api.setServerErrors, libData )
       };
 
       return <Component REForms={ enhancedAPI } { ...rest } />;
@@ -130,6 +130,6 @@ const _getDefaultProps = ( type='text', multiple=false ) => {
 
 
 /**
- * HOF helper to supply data, fns, and dispatch (packaged as 'context') to all API methods
+ * HOF helper to supply data, fns, and dispatch (packaged as 'libData') to all API methods
  */
-const _apiEnhance = ( apiMethod, context ) => ( ...args ) => apiMethod( context, ...args );
+const _apiEnhance = ( apiMethod, libData ) => ( ...args ) => apiMethod( libData, ...args );

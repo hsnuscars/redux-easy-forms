@@ -5,22 +5,22 @@ import { props } from '../src/REFormsAPI';
 describe( 'props()', () => {
   it( 'should return a correct set of props given a valid fieldKey', () => {
     const expected = {
-      formKey:      'userForm',
-      type:         'text',
-      multiple:     false,
-      disabled:     false,
-      focused:      false,
-      touched:      false,
-      dirty:        false,
-      errors:       [],
-      serverErrors: [],
-      value:        '',
-      valuePristine:    '',
-      valueIn:      '',
-      valueOut:     '',
-      onFocus:      true,   // if function
-      onChange:     true,   // if function
-      onBlur:       true    // if function
+      formKey:       'userForm',
+      type:          'text',
+      multiple:      false,
+      disabled:      false,
+      focused:       false,
+      touched:       false,
+      dirty:         false,
+      errors:        [],
+      serverErrors:  [],
+      value:         '',
+      valuePristine: '',
+      valueIn:       '',
+      valueOut:      '',
+      onFocus:       true,   // if function
+      onChange:      true,   // if function
+      onBlur:        true    // if function
     };
 
     const actual = props( libData, 'email' );

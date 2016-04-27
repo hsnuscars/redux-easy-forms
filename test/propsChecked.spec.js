@@ -5,23 +5,23 @@ import { propsChecked } from '../src/REFormsAPI';
 describe( 'propsChecked()', () => {
   it( 'should return a correct set of props given a valid fieldKey', () => {
     const expected = {
-      formKey:      'profileForm',
-      type:         'radio',
-      checked:      true,     // value is 'female'
-      multiple:     false,
-      disabled:     false,
-      focused:      false,
-      touched:      false,
-      dirty:        false,
-      errors:       [],
-      serverErrors: [],
-      value:        'female',
-      valuePristine:   'female',
-      valueIn:      'female',
-      valueOut:     'female',
-      onFocus:      true,     // if function
-      onChange:     true,     // if function
-      onBlur:       true      // if function
+      formKey:       'profileForm',
+      type:          'radio',
+      checked:       true,     // value is 'female'
+      multiple:      false,
+      disabled:      false,
+      focused:       false,
+      touched:       false,
+      dirty:         false,
+      errors:        [],
+      serverErrors:  [],
+      value:         'female',
+      valuePristine: 'female',
+      valueIn:       'female',
+      valueOut:      'female',
+      onFocus:       true,     // if function
+      onChange:      true,     // if function
+      onBlur:        true      // if function
     };
 
     const actual = propsChecked( libData, 'gender', 'female' );

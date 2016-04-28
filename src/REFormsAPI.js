@@ -579,7 +579,7 @@ function _getFieldProps( libData, key, opts ) {
 
   // do not log warning if data is empty (occurs on first render)
   } else if ( !__.isEmpty( data ) ) {
-    console.warn( `REForms: field ${ key } does not exist in schema...` );
+    console.warn( `REForms: field '${ key }' does not exist in schema...` );
   }
 
   return props ? props : {};

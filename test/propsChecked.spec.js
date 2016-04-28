@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { libData } from './_test-data';
+import { libData, FORMKEY_PROFILEFORM, VALUE_GENDER_FEMALE } from './_test-data';
 import { propsChecked } from '../src/REFormsAPI';
 
 describe( 'propsChecked()', () => {
   it( 'should return a correct set of props given a valid fieldKey', () => {
     const expected = {
-      formKey:       'profileForm',
+      formKey:       FORMKEY_PROFILEFORM,
       type:          'radio',
-      checked:       true,     // value is 'female'
+      checked:       true,     // should be when value is 'female'
       multiple:      false,
       disabled:      false,
       focused:       false,
@@ -15,16 +15,16 @@ describe( 'propsChecked()', () => {
       dirty:         false,
       errors:        [],
       serverErrors:  [],
-      value:         'female',
-      valuePristine: 'female',
-      valueIn:       'female',
-      valueOut:      'female',
-      onFocus:       true,     // if function
-      onChange:      true,     // if function
-      onBlur:        true      // if function
+      value:         VALUE_GENDER_FEMALE,
+      valuePristine: VALUE_GENDER_FEMALE,
+      valueIn:       VALUE_GENDER_FEMALE,
+      valueOut:      VALUE_GENDER_FEMALE,
+      onFocus:       true,     // stub for function
+      onChange:      true,     // stub for function
+      onBlur:        true      // stub for function
     };
 
-    const actual = propsChecked( libData, 'gender', 'female' );
+    const actual = propsChecked( libData, 'gender', VALUE_GENDER_FEMALE );
     actual.onFocus  = typeof actual.onFocus === 'function' ? true : false;
     actual.onChange = typeof actual.onChange === 'function' ? true : false;
     actual.onBlur   = typeof actual.onBlur === 'function' ? true : false;

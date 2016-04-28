@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { libData } from './_test-data';
+import { libData, FORMKEY_USERFORM, VALUE_EMAIL } from './_test-data';
 import { props } from '../src/REFormsAPI';
 
 describe( 'props()', () => {
   it( 'should return a correct set of props given a valid fieldKey', () => {
     const expected = {
-      formKey:       'userForm',
+      formKey:       FORMKEY_USERFORM,
       type:          'text',
       multiple:      false,
       disabled:      false,
@@ -14,13 +14,13 @@ describe( 'props()', () => {
       dirty:         false,
       errors:        [],
       serverErrors:  [],
-      value:         '',
-      valuePristine: '',
-      valueIn:       '',
-      valueOut:      '',
-      onFocus:       true,    // if function
-      onChange:      true,    // if function
-      onBlur:        true     // if function
+      value:         VALUE_EMAIL,
+      valuePristine: VALUE_EMAIL,
+      valueIn:       VALUE_EMAIL,
+      valueOut:      VALUE_EMAIL,
+      onFocus:       true,    // stub for function
+      onChange:      true,    // stub for function
+      onBlur:        true     // stub for function
     };
 
     const actual = props( libData, 'email' );

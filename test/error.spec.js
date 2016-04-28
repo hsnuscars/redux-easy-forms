@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import * as __ from '../src/utils';
 
-import { ERROR_1, ERROR_2, SERVER_ERROR_1, SERVER_ERROR_2, libData } from './_test-data';
+import { libData, FORMKEY_USERFORM, ERROR_1, ERROR_2, SERVER_ERROR_1, SERVER_ERROR_2 } from './_test-data';
 import { error } from '../src/REFormsAPI';
 
 
 describe( 'error()', () => {
-  const formKey  = 'userForm';
+  const formKey  = FORMKEY_USERFORM;
   const fieldKey = 'email';
   
   it( 'should return an empty string if field has no errors', () => {

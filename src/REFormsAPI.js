@@ -393,6 +393,10 @@ function _getFormKeys( data, query='' ) {
   } else {
     keyList = __.toArray( query ).filter( key => Boolean( data[ key ] ) );
   }
+  
+  if ( !keyList.length ) {
+    console.warn( `REForms: form(s) '${ query }' not found in schema...` );
+  }
 
   return keyList;
 }
@@ -528,7 +532,9 @@ function _getFieldProps( libData, key, opts ) {
   // otherwise, try to locate it (first match)..
   } else {
     form = _findFormKey( data, key );
-    if ( form ) { fieldData = data[ form ][ key ]; }
+    if ( form ) {
+      fieldData = data[ form ][ key ];
+    }
   }
 
   // field data object found..
@@ -579,7 +585,7 @@ function _getFieldProps( libData, key, opts ) {
 
   // do not log warning if data is empty (occurs on first render)
   } else if ( !__.isEmpty( data ) ) {
-    console.warn( `REForms: field '${ key }' does not exist in schema...` );
+    console.warn( `REForms: field '${ key }' not found in schema...` );
   }
 
   return props ? props : {};

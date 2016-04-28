@@ -27,14 +27,13 @@ describe( 'props()', () => {
     actual.onFocus  = typeof actual.onFocus === 'function' ? true : false;
     actual.onChange = typeof actual.onChange === 'function' ? true : false;
     actual.onBlur   = typeof actual.onBlur === 'function' ? true : false;
-
     expect( actual ).to.eql( expected );
   });
+
 
   it( 'should return a "fallback" object if incorrect or no fieldKey', () => {
     const expected = { value: '' };
     const actual   = props( libData, 'bogus' );
-
     expect( actual ).to.eql( expected );
   });
 });

@@ -16,9 +16,10 @@ describe( 'validationState()', () => {
     const data       = __.cloneObject( libData );
     const emailField = data.data[ formKey ][ fieldKey ];
     emailField.dirty = true;      // field must be touched
-    const actual = validationState( data, fieldKey );
+    const actual     = validationState( data, fieldKey );
     expect( actual ).to.eql( RESULT_SUCCESS );
   });
+
 
   it( "should return { validationState: 'error' } when errors and touched", () => {
     const data         = __.cloneObject( libData );
@@ -30,19 +31,19 @@ describe( 'validationState()', () => {
     expect( actual ).to.eql( RESULT_ERROR );
   });
 
-  it( "should return an empty object when validated ok but not dirty", () => {
-    const data = __.cloneObject( libData );
 
+  it( "should return an empty object when validated ok but not dirty", () => {
+    const data   = __.cloneObject( libData );
     const actual = validationState( data, fieldKey );
     expect( actual ).to.eql( RESULT_OTHER );
   });
 
-  it( "should return an empty object when errors but not touched", () => {
-    const data         = __.cloneObject( libData );
-    const emailField   = data.data[ formKey ][ fieldKey ];
-    emailField.serverErrors = [ SERVER_ERROR_1, SERVER_ERROR_2 ];
 
-    const actual = validationState( data, fieldKey );
+  it( "should return an empty object when errors but not touched", () => {
+    const data              = __.cloneObject( libData );
+    const emailField        = data.data[ formKey ][ fieldKey ];
+    emailField.serverErrors = [ SERVER_ERROR_1, SERVER_ERROR_2 ];
+    const actual            = validationState( data, fieldKey );
     expect( actual ).to.eql( RESULT_OTHER );
   });
 });

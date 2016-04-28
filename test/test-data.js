@@ -9,20 +9,12 @@ export const SERVER_ERROR_1 = 'Server error message 1';
 export const SERVER_ERROR_2 = 'Server error message 2';
 
 
-/* ----- BASE SCHEMA ----- */
-
-const emailValidators = [
-  { fn: ( str ) => Boolean( str ), error: 'Email is required' }
-];
-
-const passwordValidators = [
-  { fn: ( str ) => Boolean( str ), error: 'Password is required' }
-];
+/* ----- TEST SCHEMA ----- */
 
 const schema = {
   userForm: {
-    email:    { type: 'text',     validators: emailValidators },
-    password: { type: 'password', validators: passwordValidators }
+    email:    { type: 'text' },
+    password: { type: 'password' }
   },
   profileForm: {
     gender:   { type: 'radio', value: 'female' },
@@ -33,20 +25,5 @@ const schema = {
 export const libData = {
   data:     _parseSchema( schema ).data,
   fns:      _parseSchema( schema ).fns,
-  dispatch: () => {}
-};
-
-/* ----- ERRORS DATA ----- */
-
-const schemaErrors = {
-  emailsForm: {
-    emailCorrect:   { type: 'text', value: 'correct@example.com', validators: emailValidators },
-    emailIncorrect: { type: 'text', value: 'incorrect', validators: emailValidators },
-  }
-};
-
-export const libDataErrors = {
-  data:     _parseSchema( schemaErrors ).data,
-  fns:      _parseSchema( schemaErrors ).fns,
   dispatch: () => {}
 };

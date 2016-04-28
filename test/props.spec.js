@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { libData } from './test-data';
+import { libData } from './_test-data';
 import { props } from '../src/REFormsAPI';
 
 describe( 'props()', () => {

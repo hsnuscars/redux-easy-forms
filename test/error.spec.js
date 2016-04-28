@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as __ from '../src/utils';
 
-import { ERROR_1, ERROR_2, SERVER_ERROR_1, SERVER_ERROR_2, libData } from './test-data';
+import { ERROR_1, ERROR_2, SERVER_ERROR_1, SERVER_ERROR_2, libData } from './_test-data';
 import { error } from '../src/REFormsAPI';
 
 

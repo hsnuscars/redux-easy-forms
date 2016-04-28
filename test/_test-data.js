@@ -11,9 +11,13 @@ export const SERVER_ERROR_2 = 'Server error message 2';
 
 /* ----- TEST SCHEMA ----- */
 
+const emailValidators = [
+   { fn: ( str ) => Boolean( str ), error: 'Email is required' }
+];
+
 const schema = {
   userForm: {
-    email:    { type: 'text' },
+    email:    { type: 'text', validators: emailValidators },
     password: { type: 'password' }
   },
   profileForm: {
@@ -22,8 +26,10 @@ const schema = {
   }
 };
 
+const parsedSchema = _parseSchema( schema  );
+
 export const libData = {
-  data:     _parseSchema( schema ).data,
-  fns:      _parseSchema( schema ).fns,
+  data:     parsedSchema.data,
+  fns:      parsedSchema.fns,
   dispatch: () => {}
 };

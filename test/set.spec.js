@@ -1,7 +1,5 @@
 import { expect } from 'chai';
-
-import { libData, FORMKEY_USERFORM, FORMKEY_PROFILEFORM } from './_test-data';
-import { testStore } from './_test-store';
+import { libData, testStore, FORMKEY_USERFORM, FORMKEY_PROFILEFORM } from './_test-data';
 
 import { set } from '../src/REFormsAPI';
 
@@ -11,15 +9,8 @@ describe( 'set()', () => {
     const newValue = 'peter@moarwick.com';
     const setData = { [ fieldKey ]: newValue };
     set( libData, setData );
-
-    let timeout = setTimeout( () => {
-      const updatedStore = testStore.getState().REForms;
-      console.log( updatedStore[ FORMKEY_USERFORM ][ fieldKey ].value );
-    }, 100 );
-
-    // const actual = updatedStore[ FORMKEY_USERFORM ][ fieldKey ].valueOut;
-    // expect( actual ).to.eql( newValue );
-
-
+    const updatedStore = testStore.getState().REForms;
+    const actual = updatedStore[ FORMKEY_USERFORM ][ fieldKey ].value;
+    expect( actual ).to.eql( newValue );
   });
 });

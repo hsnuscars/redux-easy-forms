@@ -1,4 +1,8 @@
+import { combineReducers, createStore  } from 'redux';
+import { REFormsReducer } from '../src/index';
 import { _parseSchema } from '../src/REFormsEnhance';
+import { initFormsAction } from '../src/REFormsActions';
+
 
 /* ----- CONST ----- */
 
@@ -13,7 +17,13 @@ export const VALUE_GENDER_FEMALE  = 'female';
 export const VALUE_SPORTS_RUNNING = 'running';
 
 
-/* ----- TEST SCHEMA ----- */
+/* ----- REDUX STORE ----- */
+
+const rootReducer = combineReducers({ REForms: REFormsReducer });
+const store = createStore( rootReducer );
+
+
+/* ----- SCHEMA ----- */
 
 const emailValidators = [
    { fn: ( str ) => Boolean( str ), error: 'Email is required' }
@@ -30,10 +40,21 @@ const schema = {
   }
 };
 
-const parsedSchema = _parseSchema( schema  );
+/* ----- INIT STORE ----- */
+
+// parse schema into REForms data structure (as done by REFormsEnhance)
+const parsedSchema = _parseSchema( schema );
+
+// initialize store with REForms data
+store.dispatch( initFormsAction( parsedSchema.data, parsedSchema.fns ) );
+
+
+/* ----- FINAL EXPORTS USED IN TESTS ----- */
 
 export const libData = {
-  data:     parsedSchema.data,
+  data:     store.getState().REForms,
   fns:      parsedSchema.fns,
-  dispatch: () => {}
+  dispatch: store.dispatch
 };
+
+export const testStore = store;

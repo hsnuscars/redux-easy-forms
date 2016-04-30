@@ -7,10 +7,11 @@ export default function REFormsReducer( state={}, action ) {
 
   switch( action.type ) {
     /*
-     * Action dispatched from REFormsEnhance, prior to mounting any decorated component
-     * Expect user's initial data object and extend it onto state
+     * Populate Redux with user's initial REForms data set
+     * Dispatched from REFormsEnhance, prior to mounting any decorated component
      */
     case REFORMS_INIT:
+      console.log( 'reducer init' );
       const data = _validateAll( action.data, action.fns );
       return { ...state, ...data };
 
@@ -24,6 +25,8 @@ export default function REFormsReducer( state={}, action ) {
     case REFORMS_UPDATE_FIELDS:
       const { fieldUpdateList, fns } = action;
       const stateClone = __.cloneObject( state );
+
+      console.log( 'reducer updating:', fieldUpdateList );
 
       fieldUpdateList.forEach( ( newProps ) => {
         const { formKey, fieldKey, value, ...rest } = newProps;

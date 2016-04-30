@@ -1,6 +1,5 @@
 import { _parseSchema } from '../src/REFormsEnhance';
 
-
 /* ----- CONST ----- */
 
 export const FORMKEY_USERFORM     = 'userForm';

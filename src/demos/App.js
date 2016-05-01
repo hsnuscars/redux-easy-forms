@@ -10,6 +10,9 @@ import { REFormsEnhance } from '../index';         // <--- REForms HOC decorator
 
 import { demoSchema } from './form-schema';
 
+import logoSvg from './logo-reforms-demo.svg';
+import logoGithub from './logo-github.svg';
+
 
 // the main App component, includes other sub-components
 class App extends React.Component {
@@ -37,9 +40,12 @@ class App extends React.Component {
     return (
       <div>
         <div style={ styles.header }>
-          <Grid>
-            <a style={ styles.gitHub } href="https://github.com/moarwick/redux-easy-forms">GitHub &raquo;</a>
-            <div style={ styles.headerTitle }>REForms API Playground</div>
+          <Grid style={ styles.headerGrid }>
+            <img src={ logoSvg } style={ styles.logo }/>
+            <a style={ styles.gitHub } href="https://github.com/moarwick/redux-easy-forms">
+              <img src={ logoGithub } style={ styles.logoGithub }/>
+            </a>
+            <div style={ styles.headerTitle }>API Playground</div>
           </Grid>
         </div>
 
@@ -522,18 +528,33 @@ export default connect(
 
 const styles = {
   header: {
-    textAlign:       'center',
     backgroundColor: '#E54630',
     color:           '#F0D294',
-    height:          70,
+    height:          90,
     paddingTop:      12
   },
-  gitHub: {
-    float: 'right',
-    color: '#F0D294'
+  headerGrid: {
+    position: 'relative'
+  },
+  logo: {
+    position: 'absolute',
+    left:     10,
+    width:    275
   },
   headerTitle: {
-    fontSize:  32
+    position: 'absolute',
+    left:     300,
+    top:      15,
+    fontSize: 32
+  },
+  gitHub: {
+    position: 'absolute',
+    right:    0,
+    top:      10
+
+  },
+  logoGithub: {
+    width: 48
   },
   code: {
     backgroundColor: '#EEF'

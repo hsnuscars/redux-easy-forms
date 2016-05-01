@@ -13,6 +13,7 @@ describe( 'unset()', () => {
     const origValue = get( libData, fieldKey );
     const tempValue = 'temp';
 
+    // set a new value into a field
     set( libData, { [ fieldKey ]: tempValue } );
 
     let updatedData = testStore.getState().REForms;
@@ -21,6 +22,7 @@ describe( 'unset()', () => {
     const data = { data: updatedData };
     const updatedLibData = { ...libData, ...data };
 
+    // reset it back
     unset( updatedLibData, fieldKey );
 
     updatedData  = testStore.getState().REForms;
@@ -46,6 +48,7 @@ describe( 'unset()', () => {
       [ fieldKey2 ]: tempValue2
     };
 
+    // set new values into fields
     set( libData, setData );
 
     let updatedData = testStore.getState().REForms;
@@ -55,6 +58,7 @@ describe( 'unset()', () => {
     const data = { data: updatedData };
     const updatedLibData = { ...libData, ...data };
 
+    // reset the fields
     unset( updatedLibData, [ fieldKey1, fieldKey2 ] );
 
     updatedData  = testStore.getState().REForms;

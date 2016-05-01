@@ -42,7 +42,8 @@ describe( 'unsetForm()', () => {
   it( "should restore all forms to their pristine state", () => {
     const clearedFormsComp = {
       userForm:    { email: '', password: '' },
-      profileForm: { gender: '', sports: [] }
+      profileForm: { gender: '', sports: [] },
+      testForm:    { descr: '' }
     };
 
     // remember forms' starting values

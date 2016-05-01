@@ -5,20 +5,21 @@ import { getForm } from '../src/REFormsAPI';
 
 describe( 'getForm()', () => {
   it( "should return the correct object of values per the supplied 'formKey'", () => {
-    const expected = { email: VALUE_EMAIL, password: '' };
+    const expected = { email: 'matt@example.com', password: '' };
     const actual   = getForm( libData, FORMKEY_USERFORM );
     expect( actual ).to.eql( expected );
   });
 
   it( "should return an object containing all forms when 'formKey' not supplied", () => {
     const expected = {
-      [ FORMKEY_USERFORM ]:    { email: VALUE_EMAIL, password: '' },
-      [ FORMKEY_PROFILEFORM ]: { gender: VALUE_GENDER_FEMALE, sports: [ VALUE_SPORTS_RUNNING ] }
+      userForm:    { email: 'matt@example.com', password: '' },
+      profileForm: { gender: 'female', sports: [ 'running' ] },
+      testForm:    { descr: 'Calling all reformers!' }
     };
     const actual = getForm( libData );
     expect( actual ).to.eql( expected );
   });
-  
+
   it( "should return an empty object when incorrect 'formKey' is supplied", () => {
     const expected = {};
     const actual   = getForm( libData, 'bogus' );

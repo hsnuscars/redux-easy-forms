@@ -8,6 +8,7 @@ import { initFormsAction } from '../src/REFormsActions';
 
 export const FORMKEY_USERFORM     = 'userForm';
 export const FORMKEY_PROFILEFORM  = 'profileForm';
+export const FORMKEY_TESTFORM     = 'testForm';
 export const ERROR_1              = 'Error message 1';
 export const ERROR_2              = 'Error message 2';
 export const SERVER_ERROR_1       = 'Server error message 1';
@@ -37,8 +38,11 @@ const schema = {
     password: { type: 'password' }
   },
   [ FORMKEY_PROFILEFORM ]: {
-    gender:   { type: 'radio', value: VALUE_GENDER_FEMALE },
-    sports:   { type: 'checkbox', value: [ VALUE_SPORTS_RUNNING ], multiple: true }
+    gender: { type: 'radio', value: VALUE_GENDER_FEMALE },
+    sports: { type: 'checkbox', value: [ VALUE_SPORTS_RUNNING ], multiple: true }
+  },
+  [ FORMKEY_TESTFORM ]: {
+    descr: { type: 'textarea', value: 'Calling all reformers!' }
   }
 };
 

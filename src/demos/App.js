@@ -538,7 +538,7 @@ const styles = {
   },
   logo: {
     position: 'absolute',
-    left:     10,
+    left:     15,
     width:    275
   },
   headerTitle: {
@@ -549,9 +549,8 @@ const styles = {
   },
   gitHub: {
     position: 'absolute',
-    right:    0,
+    right:    15,
     top:      10
-
   },
   logoGithub: {
     width: 48

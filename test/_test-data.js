@@ -14,6 +14,7 @@ export const SERVER_ERROR_1       = 'Server error message 1';
 export const SERVER_ERROR_2       = 'Server error message 2';
 export const VALUE_EMAIL          = 'matt@example.com';
 export const VALUE_GENDER_FEMALE  = 'female';
+export const VALUE_GENDER_MALE    = 'male';
 export const VALUE_SPORTS_RUNNING = 'running';
 export const VALUE_SPORTS_BIKING  = 'biking';
 

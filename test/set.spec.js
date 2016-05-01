@@ -8,7 +8,7 @@ afterEach(function() {
 
 describe( 'set()', () => {
 
-  it( "should set value into a 'text' field", () => {
+  it( "should set a single value into a 'text' field", () => {
     const newValue = 'peter@moarwick.com';
     const setData  = { email: newValue };
     set( libData, setData );

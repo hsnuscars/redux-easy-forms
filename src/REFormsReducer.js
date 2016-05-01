@@ -11,7 +11,6 @@ export default function REFormsReducer( state={}, action ) {
      * Dispatched from REFormsEnhance, prior to mounting any decorated component
      */
     case REFORMS_INIT:
-      console.log( 'reducer init' );
       const data = _validateAll( action.data, action.fns );
       return { ...state, ...data };
 
@@ -26,8 +25,6 @@ export default function REFormsReducer( state={}, action ) {
       const { fieldUpdateList, fns } = action;
       const stateClone = __.cloneObject( state );
 
-      console.log( 'reducer updating:', fieldUpdateList );
-
       fieldUpdateList.forEach( ( newProps ) => {
         const { formKey, fieldKey, value, ...rest } = newProps;
 
@@ -36,6 +33,7 @@ export default function REFormsReducer( state={}, action ) {
 
         // reference correct field obj
         const fieldObj = stateClone[ formKey ][ fieldKey ];
+        const { type, multiple, valuePristine } = fieldObj;
 
         // change status flags only if present in new props
         if ( 'focused' in newProps ) { fieldObj.focused = newProps.focused; }
@@ -55,7 +53,7 @@ export default function REFormsReducer( state={}, action ) {
         }
 
         // handle value updates
-        if ( value !== undefined ) {
+        if ( _isValidTypeValue( value, type, multiple ) ) {
           let valueIn = value;
 
           // if in-filter specified, apply it
@@ -92,7 +90,6 @@ export default function REFormsReducer( state={}, action ) {
         }
 
         // determine status of 'dirty' based on current valuePristine
-        const { multiple, valuePristine } = fieldObj;
         fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, valuePristine ) : fieldObj.value !== valuePristine;
 
         // update field in state copy!
@@ -153,4 +150,22 @@ function _validate( value, validators ) {
   }
 
   return errors;
+}
+
+
+/*
+ * Determine if value is okay to update
+ */
+function _isValidTypeValue( value, type, multiple ) {
+  const valueType = typeof value;
+  let isValid     = true;
+
+  if ( Array.isArray( value ) ) {
+    if ( !multiple ) { isValid = false; }
+
+  } else if ( valueType === 'undefined' || ( valueType !== 'string' && valueType !== 'number' ) ) {
+    isValid = false;
+  }
+
+  return isValid;
 }

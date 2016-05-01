@@ -11,12 +11,12 @@ export function isEmpty( obj ) {
  */
 export function cloneObject( obj ) {
   if ( !obj || typeof obj !== 'object' ) { return obj; }
- 
+
   const temp = obj.constructor();
   for ( var key in obj ) {
     temp[ key ] = cloneObject( obj[ key ] );
   }
-  
+
   return temp;
 }
 
@@ -71,7 +71,7 @@ export function toggle( array, value ) {
 export function isEqualArrays( a1, a2 ) {
   const diff1 = a1.filter( val => !a2.includes( val ) );
   const diff2 = a2.filter( val => !a1.includes( val ) );
-  return ![...diff1, ...diff2].length;
+  return ![ ...diff1, ...diff2 ].length;
 }
 
 

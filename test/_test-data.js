@@ -15,6 +15,7 @@ export const SERVER_ERROR_2       = 'Server error message 2';
 export const VALUE_EMAIL          = 'matt@example.com';
 export const VALUE_GENDER_FEMALE  = 'female';
 export const VALUE_SPORTS_RUNNING = 'running';
+export const VALUE_SPORTS_BIKING  = 'biking';
 
 
 /* ----- REDUX STORE ----- */
@@ -39,6 +40,7 @@ const schema = {
     sports:   { type: 'checkbox', value: [ VALUE_SPORTS_RUNNING ], multiple: true }
   }
 };
+
 
 /* ----- INIT STORE ----- */
 

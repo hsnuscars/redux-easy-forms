@@ -162,7 +162,6 @@ export function getForm( libData, formKey='' ) {
 export function set( libData, setData={}, formKey='' ) {
   const { fns, dispatch } = libData;
   const fieldSetList = _makeFieldObjList( libData, setData, 'value', formKey );
-  console.log( 'setting:', fieldSetList );
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_SET );
 }
 

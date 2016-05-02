@@ -120,8 +120,8 @@ For the complete API, see the [API Documentation](api.md).
 ### Schema, Validators, Filters
 When defining your schema, the following field props are relevant, though none are actually required. While an empty object will suffice, you *should* specify the `type` at least.
 
-#### type: "text"|"tel"|"checkbox"|"radio"|"select"|"textarea"
-The type of the input element. `"text"` is default. For number fields, `"tel"` is mobile-friendly.
+#### type: 'text' | 'tel' | 'checkbox' | 'radio' | 'select' | 'textarea'
+The type of the input element. `'text'` is default. For number fields, `'tel'` is mobile-friendly.
 
 #### multiple: true|false
 `false` by default.

@@ -256,7 +256,7 @@ export function isValid( libData, fieldKey='', formKey='' ) {
       matchedFormKey = _findFormKey( data, key );
     }
     if ( matchedFormKey ) {
-      const props = _getFieldProps( libData, key, { formKey: matchedFormKey, pick: [ 'serverErrors', 'errors' ] } )
+      const props = _getFieldProps( libData, key, { formKey: matchedFormKey, pick: [ 'serverErrors', 'errors' ] } );
       if ( isValid && ( props.serverErrors.length || props.errors.length ) ) {
         isValid = false;
       }
@@ -395,7 +395,7 @@ function _getFormKeys( data, query='' ) {
   }
   
   if ( !keyList.length ) {
-    console.warn( `REForms: form(s) '${ query }' not found in schema...` );
+    console.warn( `REForms: Form(s) '${ query }' not found in schema!` );
   }
 
   return keyList;
@@ -585,7 +585,7 @@ function _getFieldProps( libData, key, opts ) {
 
   // do not log warning if data is empty (occurs on first render)
   } else if ( !__.isEmpty( data ) ) {
-    console.warn( `REForms: field '${ key }' not found in schema...` );
+    console.warn( `REForms: Field '${ key }' not found in schema!` );
   }
 
   return props ? props : {};

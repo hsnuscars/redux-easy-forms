@@ -1,7 +1,4 @@
-![REForms](./logo-reforms.svg)
-![REForms](logo-reforms.svg)
-![REForms](./logo-reforms.png)
-![REForms](logo-reforms.png)
+![Redux Easy Forms](logo-reforms.png)
 
 redux-easy-forms
 =================

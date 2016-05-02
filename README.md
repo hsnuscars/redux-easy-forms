@@ -1,4 +1,4 @@
-![Alt text](./src/logo-reforms.jpg)
+![Alt text](./src/logo-reforms.svg)
 
 redux-easy-forms
 =================

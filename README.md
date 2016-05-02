@@ -1,3 +1,5 @@
+![Alt text](/src/logo-reforms.jpg)
+
 redux-easy-forms
 =================
 
@@ -109,7 +111,7 @@ f.set( { email: 'matt@example.com' } ); // --> address appears in email field
 f.getForm( 'loginForm' );               // --> { email: 'matt@example.com', password: '', phone: '' }
 f.isFormValid( 'loginForm' );           // --> false
 ```
-  
+
 For an interactive demo, try the [REForms API Playground](http://moarwick.github.io/redux-easy-forms/).
 
 

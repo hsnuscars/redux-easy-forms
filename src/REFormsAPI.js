@@ -367,7 +367,7 @@ export function setServerErrors( libData, setData={}, formKey='' ) {
 }
 
 
-/* -------------------- API HELPERS -------------------- */
+/* -------------------- PRIVATE API HELPERS -------------------- */
 
 /*
  * Helper to dispatch fieldSetList via an update action, or log a warning if nothing in list...

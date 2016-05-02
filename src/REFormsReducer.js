@@ -7,8 +7,8 @@ export default function REFormsReducer( state={}, action ) {
 
   switch( action.type ) {
     /*
-     * Action dispatched from REFormsEnhance, prior to mounting any decorated component
-     * Expect user's initial data object and extend it onto state
+     * Populate Redux with user's initial REForms data set
+     * Dispatched from REFormsEnhance, prior to mounting any decorated component
      */
     case REFORMS_INIT:
       const data = _validateAll( action.data, action.fns );
@@ -33,6 +33,7 @@ export default function REFormsReducer( state={}, action ) {
 
         // reference correct field obj
         const fieldObj = stateClone[ formKey ][ fieldKey ];
+        const { type, multiple, valuePristine } = fieldObj;
 
         // change status flags only if present in new props
         if ( 'focused' in newProps ) { fieldObj.focused = newProps.focused; }
@@ -52,7 +53,7 @@ export default function REFormsReducer( state={}, action ) {
         }
 
         // handle value updates
-        if ( value !== undefined ) {
+        if ( _isValidTypeValue( value, type, multiple ) ) {
           let valueIn = value;
 
           // if in-filter specified, apply it
@@ -89,7 +90,6 @@ export default function REFormsReducer( state={}, action ) {
         }
 
         // determine status of 'dirty' based on current valuePristine
-        const { multiple, valuePristine } = fieldObj;
         fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, valuePristine ) : fieldObj.value !== valuePristine;
 
         // update field in state copy!
@@ -150,4 +150,22 @@ function _validate( value, validators ) {
   }
 
   return errors;
+}
+
+
+/*
+ * Determine if value is okay to update
+ */
+function _isValidTypeValue( value, type, multiple ) {
+  const valueType = typeof value;
+  let isValid     = true;
+
+  if ( Array.isArray( value ) ) {
+    if ( !multiple ) { isValid = false; }
+
+  } else if ( valueType === 'undefined' || ( valueType !== 'string' && valueType !== 'number' ) ) {
+    isValid = false;
+  }
+
+  return isValid;
 }

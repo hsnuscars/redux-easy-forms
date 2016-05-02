@@ -78,7 +78,7 @@ export function error( libData, fieldKey='', formKey='' ) {
   const serverError     = !focused && serverErrors && serverErrors.length ? serverErrors[ 0 ] : '';
   const validationError = !focused && touched && errors && errors.length ? props.errors[ 0 ] : '';
   const error           = serverError ? serverError : validationError;
-  
+
   return error;
 }
 
@@ -367,7 +367,7 @@ export function setServerErrors( libData, setData={}, formKey='' ) {
 }
 
 
-/* -------------------- API HELPERS -------------------- */
+/* -------------------- PRIVATE API HELPERS -------------------- */
 
 /*
  * Helper to dispatch fieldSetList via an update action, or log a warning if nothing in list...
@@ -393,7 +393,7 @@ function _getFormKeys( data, query='' ) {
   } else {
     keyList = __.toArray( query ).filter( key => Boolean( data[ key ] ) );
   }
-  
+
   if ( !keyList.length ) {
     console.warn( `REForms: Form(s) '${ query }' not found in schema!` );
   }

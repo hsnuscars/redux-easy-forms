@@ -3,9 +3,9 @@
 redux-easy-forms
 =================
 
-> Work-in-progress, not ready for "public consumption"...
+> Tread lightly, not battle-tested yet. Feedback welcome!
 
-### Forms got you down? Try REForms!
+### Forms got you down? Try REForms
 
 * Define your fields via a simple "schema" object
 * REForms automatically flows your form data through Redux state
@@ -159,6 +159,5 @@ The `in` function is applied during `onChange`, when reading-in an input field. 
 
 
 ### To Do
-* Tests
 * Dynamic addition/removal of forms
 * Nested sub-forms

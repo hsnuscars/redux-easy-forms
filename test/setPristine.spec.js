@@ -8,7 +8,7 @@ afterEach(function() {
 
 describe( 'setPristine()', () => {
 
-  it( "should reset a single field to its pristine value", () => {
+  it( "should set field's current value as 'pristine'", () => {
     const fieldKey  = 'descr';
     const origValue = get( libData, fieldKey );
     const newValue  = 'New description';

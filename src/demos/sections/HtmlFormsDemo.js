@@ -1,5 +1,32 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { colAccent } from '../App';
+
+// some minimalist inline styling (for demo purposes)
+const styles = {
+  block: {
+    display: 'block',
+    width:   '100%'
+  },
+  rowMargin: {
+    marginTop: '10px'
+  },
+  error: {
+    fontSize: '14px',
+    color:     'maroon',
+    marginTop: 0
+  },
+  label: {
+    display:    'block',
+    fontWeight: 'normal'
+  },
+  code: {
+    display:         'block',
+    backgroundColor: 'transparent',
+    color:           colAccent,
+    paddingBottom:   10
+  }
+};
 
 
 export default class HtmlFormsDemo extends React.Component {
@@ -11,13 +38,18 @@ export default class HtmlFormsDemo extends React.Component {
       <div>
         <Row>
           <Col xs={ 12 } >
+            <code style={ styles.code }>userForm:</code>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={ 12 } >
             <input
               style={ styles.block }
               placeholder="Email"
               { ...f.props( 'email' ) }
             />
             <p style={ styles.error }>{ f.error( 'email' ) }</p>
-            
+
             <input
               style={ styles.block }
               placeholder="Password"
@@ -32,6 +64,12 @@ export default class HtmlFormsDemo extends React.Component {
             />
             <p style={ styles.error }>{ f.error( 'phone' ) }</p>
 
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={ 12 } >
+            <code style={ styles.code }>profileForm:</code>
           </Col>
         </Row>
 
@@ -73,7 +111,6 @@ export default class HtmlFormsDemo extends React.Component {
               &nbsp;Male
             </label>
           </Col>
-
         </Row>
 
         <Row style={{ marginTop: '10px' }}>
@@ -100,7 +137,6 @@ export default class HtmlFormsDemo extends React.Component {
               <option value="leather">Leather Interior</option>
               <option value="wheels">Wheel Caps</option>
             </select>
-            
           </Col>
         </Row>
 
@@ -108,28 +144,3 @@ export default class HtmlFormsDemo extends React.Component {
     );
   }
 }
-
-// some minimalist inline styling (for demo purposes)
-const styles = {
-  block: {
-    display: 'block',
-    width:   '100%'
-  },
-  rowMargin: {
-    marginTop: '10px'
-  },
-  error: {
-    fontSize: '14px',
-    color:     'maroon',
-    marginTop: 0
-  },
-  label: {
-    display:    'block',
-    fontWeight: 'normal'
-  },
-  button: {
-    float:     'right',
-    marginTop: '20px'
-  }
-
-};

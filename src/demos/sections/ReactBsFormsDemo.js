@@ -10,6 +10,17 @@ import {
   Radio
 } from 'react-bootstrap';
 
+import { colAccent } from '../App';
+
+const styles = {
+  code: {
+    display:         'block',
+    backgroundColor: 'transparent',
+    color:            colAccent,
+    paddingBottom:   10
+  }
+};
+
 
 export default class ReactBsFormsDemo extends React.Component {
 
@@ -18,6 +29,12 @@ export default class ReactBsFormsDemo extends React.Component {
 
     return (
       <div>
+        <Row>
+          <Col xs={ 12 } >
+            <code style={ styles.code }>userForm:</code>
+          </Col>
+        </Row>
+
         <Row>
           <Col xs={ 12 } >
             <FormGroup { ...( f.validationState( 'email' ) ) }>
@@ -46,6 +63,12 @@ export default class ReactBsFormsDemo extends React.Component {
               <FormControl.Feedback />
               <HelpBlock>{ f.error( 'phone' ) }</HelpBlock>
             </FormGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={ 12 } >
+            <code style={ styles.code }>profileForm:</code>
           </Col>
         </Row>
 

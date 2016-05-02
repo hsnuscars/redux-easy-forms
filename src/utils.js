@@ -7,12 +7,28 @@ export function isEmpty( obj ) {
 
 
 /*
+ * Recursive function to clone an object
+ */
+export function cloneObject( obj ) {
+  if ( !obj || typeof obj !== 'object' ) { return obj; }
+
+  const temp = obj.constructor();
+  for ( var key in obj ) {
+    temp[ key ] = cloneObject( obj[ key ] );
+  }
+
+  return temp;
+}
+
+
+/*
  * Return a copy of the supplied object, containing only the whitelisted props
  */
 export function pick( obj, ...keys ) {
-  let newObj = {};
+  const clonedObj = cloneObject( obj );
+  const newObj    = {};
   keys.forEach( ( key ) => {
-    if ( key in obj ) { newObj[ key ] = obj[ key ]; }
+    if ( key in clonedObj ) { newObj[ key ] = clonedObj[ key ]; }
   });
   return newObj;
 }
@@ -53,9 +69,9 @@ export function toggle( array, value ) {
  * Check if two arrays have identical contents
  */
 export function isEqualArrays( a1, a2 ) {
-  const diff1   = a1.filter( val => !a2.includes( val ) );
-  const diff2   = a2.filter( val => !a1.includes( val ) );
-  return ![...diff1, ...diff2].length;
+  const diff1 = a1.filter( val => !a2.includes( val ) );
+  const diff2 = a2.filter( val => !a1.includes( val ) );
+  return ![ ...diff1, ...diff2 ].length;
 }
 
 

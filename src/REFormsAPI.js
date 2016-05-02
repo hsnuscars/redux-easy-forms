@@ -23,8 +23,8 @@ const WARN_SET_SERVER_ERRORS = 'REForms.setFormPristine: No field to set server 
  * @param   {string} [formKey] - The field's formKey (optional, recommended)
  * @returns {Object} Object containing props, or the 'value' prop only (empty string)
  */
-export function props( context, fieldKey='', formKey='' ) {
-  const props = _getFieldProps( context, fieldKey, { formKey } );
+export function props( libData, fieldKey='', formKey='' ) {
+  const props = _getFieldProps( libData, fieldKey, { formKey } );
 
   // custom behavior for 'select' & 'textarea' inputs:
   // - add 'componentClass' for React BS
@@ -36,7 +36,7 @@ export function props( context, fieldKey='', formKey='' ) {
 
   // HACK: at a minimum, return 'value', otherwise React throws "controlled input" warning..
   if ( __.isEmpty( props ) ) { props.value = ''; }
-  
+
   return props;
 }
 
@@ -50,12 +50,12 @@ export function props( context, fieldKey='', formKey='' ) {
  * @param   {string}            [formKey]    - The field's formKey (optional, recommended)
  * @returns {Object}            Object containing props, or the 'value' prop only (empty string)
  */
-export function propsChecked( context, fieldKey='', checkedValue='', formKey='' ) {
-  const props = _getFieldProps( context, fieldKey, { checkedValue, formKey } );
-  
+export function propsChecked( libData, fieldKey='', checkedValue='', formKey='' ) {
+  const props = _getFieldProps( libData, fieldKey, { checkedValue, formKey } );
+
   // HACK: at a minimum, return 'value', otherwise React throws "controlled input" warning..
   if ( __.isEmpty( props ) ) { props.value = ''; }
-  
+
   return props;
 }
 
@@ -71,8 +71,8 @@ export function propsChecked( context, fieldKey='', checkedValue='', formKey='' 
  * @param   {string} [formKey] - The field's formKey (optional, recommended)
  * @returns {string} Error message, or an empty string
  */
-export function error( context, fieldKey='', formKey='' ) {
-  const props = _getFieldProps( context, fieldKey, { formKey, pick: [ 'errors', 'serverErrors', 'focused', 'touched' ] } );
+export function error( libData, fieldKey='', formKey='' ) {
+  const props = _getFieldProps( libData, fieldKey, { formKey, pick: [ 'errors', 'serverErrors', 'focused', 'touched' ] } );
   const { errors, serverErrors, focused, touched } = props;
 
   const serverError     = !focused && serverErrors && serverErrors.length ? serverErrors[ 0 ] : '';
@@ -91,10 +91,10 @@ export function error( context, fieldKey='', formKey='' ) {
  * @param   {string} [formKey]    - The field's formKey (optional, recommended)
  * @returns {Object} Object containing 'valdationState' prop, or an empty object
  */
-export function validationState( context, fieldKey='', formKey='' ) {
-  const { fns } = context;
+export function validationState( libData, fieldKey='', formKey='' ) {
+  const { fns } = libData;
   const result  = {};
-  const props   = _getFieldProps( context, fieldKey, { formKey } );
+  const props   = _getFieldProps( libData, fieldKey, { formKey } );
 
   const form         = props.formKey;
   const isValidators = fns[ form ] && fns[ form ][ fieldKey ] && fns[ form ][ fieldKey ].validators;
@@ -117,8 +117,8 @@ export function validationState( context, fieldKey='', formKey='' ) {
  * @param   {string} [formKey] - The field's formKey (optional, recommended)
  * @returns {*}      The "out" value (a string, unless transformed by the 'out' filter)
  */
-export function get( context, fieldKey='', formKey='' ) {
-  const props = _getFieldProps( context, fieldKey, { formKey } );
+export function get( libData, fieldKey='', formKey='' ) {
+  const props = _getFieldProps( libData, fieldKey, { formKey } );
   return props.valueOut ? props.valueOut : '';
 }
 
@@ -130,19 +130,19 @@ export function get( context, fieldKey='', formKey='' ) {
  * @param   {string} [formKey] - The formKey of the requested form (if not supplied, returns all forms)
  * @returns {Object} Object containing a form's key-vals, or several form sub-objects, or an empty object
  */
-export function getForm( context, formKey='' ) {
-  const { data } = context;
+export function getForm( libData, formKey='' ) {
+  const { data } = libData;
   const formsKeyList = _getFormKeys( data, formKey );
 
   // get a single form
   if ( formsKeyList.length === 1 && data[ formsKeyList[ 0 ] ] ) {
-    return _getFormOutValues( context, formsKeyList[ 0 ] );
+    return _getFormOutValues( libData, formsKeyList[ 0 ] );
 
   // return a nested object containing all forms
   } else {
     const allForms = {};
     formsKeyList.forEach( ( key ) => {
-      allForms[ key ] = _getFormOutValues( context, key );
+      allForms[ key ] = _getFormOutValues( libData, key );
     });
     return allForms;
   }
@@ -159,9 +159,9 @@ export function getForm( context, formKey='' ) {
  * @param {Object} setData   - The data object, with fieldKey and new value key-val pairs to be updated
  * @param {string} [formKey] - The formKey of the form containing the fields in setData (optional, recommended)
  */
-export function set( context, setData={}, formKey='' ) {
-  const { fns, dispatch } = context;
-  const fieldSetList = _makeFieldObjList( context, setData, 'value', formKey );
+export function set( libData, setData={}, formKey='' ) {
+  const { fns, dispatch } = libData;
+  const fieldSetList = _makeFieldObjList( libData, setData, 'value', formKey );
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_SET );
 }
 
@@ -172,9 +172,9 @@ export function set( context, setData={}, formKey='' ) {
  * @param {(string|string[])} fieldKey  - The fieldKey(s) to be reset.
  * @param {string}            [formKey] - The fields' formKey (optional, recommended)
  */
-export function unset( context, fieldKey='', formKey='' ) {
-  const { fns, dispatch } = context;
-  const fieldSetList = _makeFieldUnsetList( context, fieldKey, formKey );
+export function unset( libData, fieldKey='', formKey='' ) {
+  const { fns, dispatch } = libData;
+  const fieldSetList = _makeFieldUnsetList( libData, fieldKey, formKey );
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_UNSET );
 }
 
@@ -185,14 +185,14 @@ export function unset( context, fieldKey='', formKey='' ) {
  * Example: f.unsetForm( 'userForm' ), or f.unsetForm( [ 'userForm', 'profileForm' ] ), or f.unsetForm()
  * @param {(string|string[])} formKey - The formKey(s) of the form(s) to be unset, or no arg to unset all
  */
-export function unsetForm( context, formKey='' ) {
-  const { data, fns, dispatch } = context;
+export function unsetForm( libData, formKey='' ) {
+  const { data, fns, dispatch } = libData;
   const formsKeyList = _getFormKeys( data, formKey );
   let fieldSetList   = [];
 
   formsKeyList.forEach( ( form ) => {
     const fieldKeys = Object.keys( data[ form ] );
-    fieldSetList    = [ ...fieldSetList, ..._makeFieldUnsetList( context, fieldKeys, form ) ];
+    fieldSetList    = [ ...fieldSetList, ..._makeFieldUnsetList( libData, fieldKeys, form ) ];
   });
 
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_UNSET_FORM );
@@ -207,10 +207,10 @@ export function unsetForm( context, formKey='' ) {
  * @param {(string|string[])} fieldKey  - The fieldKey(s) to be cleared.
  * @param {string}            [formKey] - The fields' formKey (optional, recommended)
  */
-export function clear( context, fieldKey='', formKey='' ) {
-  const { fns, dispatch } = context;
+export function clear( libData, fieldKey='', formKey='' ) {
+  const { fns, dispatch } = libData;
   const setVal       = { value: '', touched: false };
-  const fieldSetList = _makeFieldSetList( context, fieldKey, formKey, setVal );
+  const fieldSetList = _makeFieldSetList( libData, fieldKey, formKey, setVal );
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_CLEAR );
 }
 
@@ -222,15 +222,15 @@ export function clear( context, fieldKey='', formKey='' ) {
  * Example: f.clearForm( 'userForm' ), or f.clearForm( [ 'userForm', 'profileForm' ] ), or f.clearForm()
  * @param {(string|string[])} formKey - The formKey(s) of the form(s) to be cleared, or no arg to clear all
  */
-export function clearForm( context, formKey='' ) {
-  const { data, fns, dispatch } = context;
+export function clearForm( libData, formKey='' ) {
+  const { data, fns, dispatch } = libData;
   const setVal       = { value: '', touched: false };
   const formsKeyList = _getFormKeys( data, formKey );
   let fieldSetList   = [];
 
   formsKeyList.forEach( ( form ) => {
     const fieldKeys = Object.keys( data[ form ] );
-    fieldSetList    = [ ...fieldSetList, ..._makeFieldSetList( context, fieldKeys, form, setVal ) ];
+    fieldSetList    = [ ...fieldSetList, ..._makeFieldSetList( libData, fieldKeys, form, setVal ) ];
   });
 
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_CLEAR_FORM );
@@ -245,8 +245,8 @@ export function clearForm( context, formKey='' ) {
  * @param   {string}            [formKey] - The fields' formKey (optional, recommended)
  * @returns {Boolean}           True if any errors found, false if none
  */
-export function isValid( context, fieldKey='', formKey='' ) {
-  const { data }     = context;
+export function isValid( libData, fieldKey='', formKey='' ) {
+  const { data }     = libData;
   const fieldKeyList = __.toArray( fieldKey );
   let matchedFormKey = formKey;
   let isValid        = true;
@@ -256,7 +256,7 @@ export function isValid( context, fieldKey='', formKey='' ) {
       matchedFormKey = _findFormKey( data, key );
     }
     if ( matchedFormKey ) {
-      const props = _getFieldProps( context, key, { formKey: matchedFormKey, pick: [ 'serverErrors', 'errors' ] } )
+      const props = _getFieldProps( libData, key, { formKey: matchedFormKey, pick: [ 'serverErrors', 'errors' ] } );
       if ( isValid && ( props.serverErrors.length || props.errors.length ) ) {
         isValid = false;
       }
@@ -274,14 +274,14 @@ export function isValid( context, fieldKey='', formKey='' ) {
  * @param   {(string|string[])} formKey - The formKey(s) of the form(s) to be checked, or no arg to check all
  * @returns {Boolean}           True if any errors found, false if none
  */
-export function isFormValid( context, formKey='' ) {
-  const { data } = context;
+export function isFormValid( libData, formKey='' ) {
+  const { data } = libData;
   const formsKeyList = _getFormKeys( data, formKey );
   let allErrors      = [];
 
   formsKeyList.forEach( ( form ) => {
     Object.keys( data[ form ] ).forEach( ( fieldKey ) => {
-      const errors = _getFieldProps( context, fieldKey, { formKey: form, pick: [ 'errors' ] } ).errors;
+      const errors = _getFieldProps( libData, fieldKey, { formKey: form, pick: [ 'errors' ] } ).errors;
       allErrors = [ ...allErrors, ...errors ];
     });
   });
@@ -298,15 +298,15 @@ export function isFormValid( context, formKey='' ) {
  * @param   {(string|string[])} formKey - The formKey(s) of the form(s) to be checked, or no arg to check all
  * @returns {Boolean}           True if any field(s) modified, false if none
  */
-export function isFormDirty( context, formKey='' ) {
-  const { data } = context;
+export function isFormDirty( libData, formKey='' ) {
+  const { data } = libData;
 
   const formsKeyList = _getFormKeys( data, formKey );
   let isAllFieldsPristine = true;
 
   formsKeyList.forEach( ( form ) => {
     Object.keys( data[ form ] ).forEach( ( fieldKey ) => {
-      const props = _getFieldProps( context, fieldKey, { formKey, pick: [ 'dirty' ] } );
+      const props = _getFieldProps( libData, fieldKey, { formKey, pick: [ 'dirty' ] } );
       if ( isAllFieldsPristine && props.dirty ) { isAllFieldsPristine = false; }
     });
   });
@@ -322,10 +322,10 @@ export function isFormDirty( context, formKey='' ) {
  * @param {(string|string[])} fieldKey  - The fieldKey(s) to be set as 'pristine'.
  * @param {string}            [formKey] - The fields' formKey (optional, recommended)
  */
-export function setPristine( context, fieldKey='', formKey='' ) {
-  const { fns, dispatch } = context;
+export function setPristine( libData, fieldKey='', formKey='' ) {
+  const { fns, dispatch } = libData;
   const setVal       = { dirty: false, touched: false };
-  const fieldSetList = _makeFieldSetList( context, fieldKey, formKey, setVal );
+  const fieldSetList = _makeFieldSetList( libData, fieldKey, formKey, setVal );
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_SET_PRISTINE );
 }
 
@@ -337,15 +337,15 @@ export function setPristine( context, fieldKey='', formKey='' ) {
  * Example: f.setFormPristine( 'userForm' ), or f.setFormPristine( [ 'userForm', 'profileForm' ] ), or f.setFormPristine()
  * @param {(string|string[])} formKey - The formKey(s) of the form(s) to be cleared, or no arg to clear all
  */
-export function setFormPristine( context, formKey='' ) {
-  const { data, fns, dispatch } = context;
+export function setFormPristine( libData, formKey='' ) {
+  const { data, fns, dispatch } = libData;
   const setVal       = { dirty: false, touched: false };
   const formsKeyList = _getFormKeys( data, formKey );
   let fieldSetList   = [];
 
   formsKeyList.forEach( ( form ) => {
     const fieldKeys = Object.keys( data[ form ] );
-    fieldSetList    = [ ...fieldSetList, ..._makeFieldSetList( context, fieldKeys, form, setVal ) ];
+    fieldSetList    = [ ...fieldSetList, ..._makeFieldSetList( libData, fieldKeys, form, setVal ) ];
   });
 
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_SET_FORM_PRISTINE );
@@ -360,14 +360,14 @@ export function setFormPristine( context, formKey='' ) {
  * @param {Object} setData   - Key-value pairs for all fields to receive error messages
  * @param {string} [formKey] - The formKey of the form containing the fields in setData (optional, recommended)
  */
-export function setServerErrors( context, setData={}, formKey='' ) {
-  const { fns, dispatch } = context;
-  const fieldSetList = _makeFieldObjList( context, setData, 'errors', formKey );
+export function setServerErrors( libData, setData={}, formKey='' ) {
+  const { fns, dispatch } = libData;
+  const fieldSetList = _makeFieldObjList( libData, setData, 'errors', formKey );
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_SET_SERVER_ERRORS );
 }
 
 
-/* -------------------- API HELPERS -------------------- */
+/* -------------------- PRIVATE API HELPERS -------------------- */
 
 /*
  * Helper to dispatch fieldSetList via an update action, or log a warning if nothing in list...
@@ -392,6 +392,10 @@ function _getFormKeys( data, query='' ) {
     keyList = Object.keys( data );
   } else {
     keyList = __.toArray( query ).filter( key => Boolean( data[ key ] ) );
+  }
+
+  if ( !keyList.length ) {
+    console.warn( `REForms: Form(s) '${ query }' not found in schema!` );
   }
 
   return keyList;
@@ -429,13 +433,13 @@ function _findFormKey( data, fieldKey ) {
  * Helper to generate a fieldSetList of objects, as needed for updateFieldsAction
  * fieldQuery can be either a single fieldKey, or an array of fieldKeys
  */
-function _makeFieldSetList( context, fieldQuery, formKey, setVal ) {
+function _makeFieldSetList( libData, fieldQuery, formKey, setVal ) {
   let fieldSetList   = [];
   const fieldKeyList = __.toArray( fieldQuery );
 
   fieldKeyList.forEach( ( fieldKey ) => {
     const setData = { [ fieldKey ]: setVal };
-    fieldSetList  = [ ...fieldSetList, ..._makeFieldObjList( context, setData, 'value', formKey ) ];
+    fieldSetList  = [ ...fieldSetList, ..._makeFieldObjList( libData, setData, 'value', formKey ) ];
   });
 
   return fieldSetList;
@@ -446,16 +450,16 @@ function _makeFieldSetList( context, fieldQuery, formKey, setVal ) {
  * Helper to generate a fieldSetList for the 'unset' methods, as needed for updateFieldsAction
  * fieldQuery can be either a single fieldKey, or an array of fieldKeys
  */
-function _makeFieldUnsetList( context, fieldQuery, formKey ) {
+function _makeFieldUnsetList( libData, fieldQuery, formKey ) {
   let fieldSetList   = [];
   const fieldKeyList = __.toArray( fieldQuery );
 
   fieldKeyList.forEach( ( fieldKey ) => {
-    const props   = _getFieldProps( context, fieldKey, { formKey, pick: [ 'multiple', 'valueOrig' ] } );
-    const { multiple, valueOrig } = props;
-    const value   = multiple ? [ ...valueOrig ] : valueOrig;
+    const props   = _getFieldProps( libData, fieldKey, { formKey, pick: [ 'multiple', 'valuePristine' ] } );
+    const { multiple, valuePristine } = props;
+    const value   = multiple ? [ ...valuePristine ] : valuePristine;
     const setData = { [ fieldKey ]: { value, touched: false } };
-    fieldSetList  = [ ...fieldSetList, ..._makeFieldObjList( context, setData, 'value', formKey ) ];
+    fieldSetList  = [ ...fieldSetList, ..._makeFieldObjList( libData, setData, 'value', formKey ) ];
   });
 
   return fieldSetList;
@@ -466,8 +470,8 @@ function _makeFieldUnsetList( context, fieldQuery, formKey ) {
  * A lower-level helper for above functions, to parse user-provided setData object into the correct object array structure
  * Ensures that each field key exists in data, and locates its corresponding formKey if not supplied
  */
-function _makeFieldObjList( context, setData, propToSet, formKey ) {
-  const { data }     = context;
+function _makeFieldObjList( libData, setData, propToSet, formKey ) {
+  const { data }     = libData;
   let matchedFormKey = formKey;
   let fieldObjList   = [];
 
@@ -511,8 +515,8 @@ function _makeFieldObjList( context, setData, propToSet, formKey ) {
  * By default, delivers an obj of props for JSX (per the field's type)
  * If opts.pick (array of prop names) specified, delivers those specific props only
  */
-function _getFieldProps( context, key, opts ) {
-  const { data, fns, dispatch } = context;
+function _getFieldProps( libData, key, opts ) {
+  const { data, fns, dispatch } = libData;
   const { formKey, pick, checkedValue } = opts;
   let fieldData = null;
   let props     = null;
@@ -528,7 +532,9 @@ function _getFieldProps( context, key, opts ) {
   // otherwise, try to locate it (first match)..
   } else {
     form = _findFormKey( data, key );
-    if ( form ) { fieldData = data[ form ][ key ]; }
+    if ( form ) {
+      fieldData = data[ form ][ key ];
+    }
   }
 
   // field data object found..
@@ -579,7 +585,7 @@ function _getFieldProps( context, key, opts ) {
 
   // do not log warning if data is empty (occurs on first render)
   } else if ( !__.isEmpty( data ) ) {
-    console.warn( `REForms: field ${ key } does not exist in schema...` );
+    console.warn( `REForms: Field '${ key }' not found in schema!` );
   }
 
   return props ? props : {};
@@ -589,13 +595,13 @@ function _getFieldProps( context, key, opts ) {
 /*
  * Iterate over specified form's fields, return a new object of fieldKey & valueOut pairs, or empty object.
  */
-function _getFormOutValues( context, formKey ) {
-  const { data } = context;
+function _getFormOutValues( libData, formKey ) {
+  const { data } = libData;
   let formObj = {};
 
   if ( data && data[ formKey ] ) {
     Object.keys( data[ formKey ] ).forEach( ( fieldKey ) => {
-      formObj[ fieldKey ] = _getFieldProps( context, fieldKey, { formKey } ).valueOut;
+      formObj[ fieldKey ] = _getFieldProps( libData, fieldKey, { formKey } ).valueOut;
     });
   }
 

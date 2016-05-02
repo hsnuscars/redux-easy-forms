@@ -1,6 +1,6 @@
 {
   "name": "redux-easy-forms",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "REForms: A React-Redux forms library for the people!",
   "keywords": [
     "form",
@@ -40,7 +40,9 @@
       "stage-0",
       "react"
     ],
-    "plugins": [ "array-includes" ]
+    "plugins": [
+      "array-includes"
+    ]
   },
   "eslintConfig": {
     "rules": {

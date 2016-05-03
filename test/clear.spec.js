@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { libData, testStore, FORMKEY_USERFORM, FORMKEY_PROFILEFORM } from './_test-data';
-import { unsetForm, clear } from '../src/REFormsAPI';
+import { resetForm, clear } from '../src/REFormsAPI';
 
 
 afterEach(function() {
-  unsetForm( libData );
+  resetForm( libData );
 });
 
 describe( 'clear()', () => {

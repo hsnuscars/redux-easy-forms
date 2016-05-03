@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { libData, testStore, FORMKEY_USERFORM, FORMKEY_PROFILEFORM, FORMKEY_TESTFORM } from './_test-data';
-import { unsetForm, getForm, clearForm } from '../src/REFormsAPI';
+import { resetForm, getForm, clearForm } from '../src/REFormsAPI';
 
 afterEach(function() {
-  unsetForm( libData );
+  resetForm( libData );
 });
 
 describe( 'clearForm()', () => {

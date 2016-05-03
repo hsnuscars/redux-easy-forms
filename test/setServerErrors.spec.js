@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { libData, testStore, FORMKEY_TESTFORM } from './_test-data';
-import { unsetForm, setServerErrors, props } from '../src/REFormsAPI';
+import { resetForm, setServerErrors, props } from '../src/REFormsAPI';
 
 afterEach(function() {
-  unsetForm( libData );
+  resetForm( libData );
 });
 
 describe( 'setServerErrors()', () => {

@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { libData, testStore, FORMKEY_USERFORM, FORMKEY_PROFILEFORM, VALUE_GENDER_MALE, VALUE_SPORTS_BIKING } from './_test-data';
-import { unsetForm, getForm, clearForm } from '../src/REFormsAPI';
+import { resetForm, getForm, clearForm } from '../src/REFormsAPI';
 
 afterEach(function() {
-  unsetForm( libData );
+  resetForm( libData );
 });
 
-describe( 'unsetForm()', () => {
+describe( 'resetForm()', () => {
 
   it( "should restore entire form its pristine state", () => {
     const clearedFormComp = { gender: '', sports: [] };
@@ -25,7 +25,7 @@ describe( 'unsetForm()', () => {
     const clearedForm = getForm( updatedLibData, FORMKEY_PROFILEFORM );
 
     // restore the form
-    unsetForm( updatedLibData, FORMKEY_PROFILEFORM );
+    resetForm( updatedLibData, FORMKEY_PROFILEFORM );
 
     const resetData = testStore.getState().REForms;
     data           = { data: resetData };
@@ -60,7 +60,7 @@ describe( 'unsetForm()', () => {
     const clearedForms = getForm( updatedLibData );
 
     // restore all forms
-    unsetForm( updatedLibData );
+    resetForm( updatedLibData );
 
     const resetData = testStore.getState().REForms;
     data           = { data: resetData };

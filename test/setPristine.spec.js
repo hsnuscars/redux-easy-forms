@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { libData, testStore, FORMKEY_TESTFORM, FORMKEY_PROFILEFORM, VALUE_GENDER_MALE, VALUE_SPORTS_BIKING } from './_test-data';
-import { get, set, setPristine, clear, unset, unsetForm } from '../src/REFormsAPI';
+import { get, set, setPristine, clear, reset, resetForm } from '../src/REFormsAPI';
 
 afterEach(function() {
-  unsetForm( libData );
+  resetForm( libData );
 });
 
 describe( 'setPristine()', () => {
@@ -29,7 +29,7 @@ describe( 'setPristine()', () => {
     updatedLibData = { ...libData, ...{ data: updatedData } };
 
     // reset to (new) pristine value
-    unset( updatedLibData, fieldKey );
+    reset( updatedLibData, fieldKey );
     updatedData    = testStore.getState().REForms;
     updatedLibData = { ...libData, ...{ data: updatedData } };
     const actual = updatedData[ FORMKEY_TESTFORM ][ fieldKey ].value;

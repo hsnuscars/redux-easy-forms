@@ -92,8 +92,8 @@ class App extends React.Component {
                   <option value="get">get</option>
                   <option value="getForm">getForm</option>
                   <option value="set">set</option>
-                  <option value="unset">unset</option>
-                  <option value="unsetForm">unsetForm</option>
+                  <option value="reset">reset</option>
+                  <option value="resetForm">resetForm</option>
                   <option value="clear">clear</option>
                   <option value="clearForm">clearForm</option>
                   <option value="isValid">isValid</option>
@@ -140,7 +140,7 @@ class App extends React.Component {
 
               { method === 'validationState' &&
                 <div>
-                  <p style={ styles.docs }>Primarily a <em>React-Bootstrap</em> helper, returns an object with the <em>validationState</em> prop, or en empty object.</p>
+                  <p style={ styles.docs }>Primarily a <em>React-Bootstrap</em> helper, returns an object with the <em>validationState</em> prop, subject to the current status of <em>touched</em> and <em>dirty</em>, or en empty object.</p>
                   <pre style={ styles.code }>
                     <span style={ styles.fn }>{ `f.validationState( '${ this.state.fieldKey }' )` }</span>
                     { this._renderSelectField() }
@@ -192,32 +192,32 @@ class App extends React.Component {
                 </div>
               }
 
-              { method === 'unset' &&
+              { method === 'reset' &&
                 <div>
                   <p style={ styles.docs }>Reset a single field, or several fields, to their <em>pristine</em> state.</p>
                   <pre style={ styles.code }>
-                    <span style={ styles.fn }>{ `f.unset( '${ this.state.fieldKey }' )` }</span>
+                    <span style={ styles.fn }>{ `f.reset( '${ this.state.fieldKey }' )` }</span>
                     { this._renderSelectField() }
                   </pre>
                   <Button bsStyle="primary"
                     onClick={ this._handleUnset }
                   >
-                    unset
+                    reset
                   </Button>
                 </div>
               }
 
-              { method === 'unsetForm' &&
+              { method === 'resetForm' &&
                 <div>
                   <p style={ styles.docs }>Reset all field values in a single form, reset multiple forms, or reset all forms, to their <em>pristine</em> state.</p>
                   <pre style={ styles.code }>
-                    <span style={ styles.fn }>{ `f.unsetForm(${ this.state.formKey ? " '" + this.state.formKey + "' " : '' })` }</span>
+                    <span style={ styles.fn }>{ `f.resetForm(${ this.state.formKey ? " '" + this.state.formKey + "' " : '' })` }</span>
                     { this._renderSelectForm() }
                   </pre>
                   <Button bsStyle="primary"
                     onClick={ this._handleUnsetForm }
                   >
-                    unsetForm
+                    resetForm
                   </Button>
                 </div>
               }
@@ -465,13 +465,13 @@ class App extends React.Component {
 
   _handleUnset = () => {
     const f = this.props.REForms;
-    f.unset( this.state.fieldKey );
+    f.reset( this.state.fieldKey );
   }
 
 
   _handleUnsetForm = () => {
     const f = this.props.REForms;
-    f.unsetForm( this.state.formKey );
+    f.resetForm( this.state.formKey );
   }
 
 

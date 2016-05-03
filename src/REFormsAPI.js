@@ -4,8 +4,8 @@ import * as __ from './utils';
 /* -------------------- CONST -------------------- */
 
 const WARN_SET               = 'REForms.set: No field to set!';
-const WARN_UNSET             = 'REForms.unset: No field to unset!';
-const WARN_UNSET_FORM        = 'REForms.unsetForm: No form to unset!';
+const WARN_UNSET             = 'REForms.reset: No field to reset!';
+const WARN_UNSET_FORM        = 'REForms.resetForm: No form to reset!';
 const WARN_CLEAR             = 'REForms.clear: No field to clear!';
 const WARN_CLEAR_FORM        = 'REForms.clearForm: No form to clear!';
 const WARN_SET_PRISTINE      = 'REForms.setPristine: No field to set pristine!';
@@ -168,11 +168,11 @@ export function set( libData, setData={}, formKey='' ) {
 
 /**
  * Reset a single field, or several fields, to their 'pristine' state.
- * Example: f.unset( 'email', 'userForm' ), or f.unset( [ 'email', 'password' ] )
+ * Example: f.reset( 'email', 'userForm' ), or f.reset( [ 'email', 'password' ] )
  * @param {(string|string[])} fieldKey  - The fieldKey(s) to be reset.
  * @param {string}            [formKey] - The fields' formKey (optional, recommended)
  */
-export function unset( libData, fieldKey='', formKey='' ) {
+export function reset( libData, fieldKey='', formKey='' ) {
   const { fns, dispatch } = libData;
   const fieldSetList = _makeFieldUnsetList( libData, fieldKey, formKey );
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_UNSET );
@@ -182,10 +182,10 @@ export function unset( libData, fieldKey='', formKey='' ) {
 /**
  * Reset all field values in a single form, or reset multiple forms, to their 'pristine' state.
  * If no argument is supplied, resets ALL forms.
- * Example: f.unsetForm( 'userForm' ), or f.unsetForm( [ 'userForm', 'profileForm' ] ), or f.unsetForm()
- * @param {(string|string[])} formKey - The formKey(s) of the form(s) to be unset, or no arg to unset all
+ * Example: f.resetForm( 'userForm' ), or f.resetForm( [ 'userForm', 'profileForm' ] ), or f.resetForm()
+ * @param {(string|string[])} formKey - The formKey(s) of the form(s) to be reset, or no arg to reset all
  */
-export function unsetForm( libData, formKey='' ) {
+export function resetForm( libData, formKey='' ) {
   const { data, fns, dispatch } = libData;
   const formsKeyList = _getFormKeys( data, formKey );
   let fieldSetList   = [];
@@ -317,7 +317,7 @@ export function isFormDirty( libData, formKey='' ) {
 
 /**
  * Set a single field, or several fields, as 'pristine' per their current values.
- * Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'unset()' will be referencing the current values.
+ * Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'reset()' will be referencing the current values.
  * Example: f.setPristine( 'email' ), or f.setPristine( [ 'email', 'password' ] )
  * @param {(string|string[])} fieldKey  - The fieldKey(s) to be set as 'pristine'.
  * @param {string}            [formKey] - The fields' formKey (optional, recommended)
@@ -332,7 +332,7 @@ export function setPristine( libData, fieldKey='', formKey='' ) {
 
 /**
  * Set all fields in a single form, or in multiple forms, as 'pristine' per their current values.
- * Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'unset()' will be referencing the current values.
+ * Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'reset()' will be referencing the current values.
  * If no argument is supplied, set fields across ALL forms as 'pristine'.
  * Example: f.setFormPristine( 'userForm' ), or f.setFormPristine( [ 'userForm', 'profileForm' ] ), or f.setFormPristine()
  * @param {(string|string[])} formKey - The formKey(s) of the form(s) to be cleared, or no arg to clear all
@@ -447,7 +447,7 @@ function _makeFieldSetList( libData, fieldQuery, formKey, setVal ) {
 
 
 /*
- * Helper to generate a fieldSetList for the 'unset' methods, as needed for updateFieldsAction
+ * Helper to generate a fieldSetList for the 'reset' methods, as needed for updateFieldsAction
  * fieldQuery can be either a single fieldKey, or an array of fieldKeys
  */
 function _makeFieldUnsetList( libData, fieldQuery, formKey ) {

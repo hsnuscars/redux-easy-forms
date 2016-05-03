@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { libData, testStore, FORMKEY_USERFORM, FORMKEY_PROFILEFORM, VALUE_GENDER_MALE, VALUE_SPORTS_BIKING } from './_test-data';
-import { unsetForm, get, set, unset } from '../src/REFormsAPI';
+import { resetForm, get, set, reset } from '../src/REFormsAPI';
 
 afterEach(function() {
-  unsetForm( libData );
+  resetForm( libData );
 });
 
-describe( 'unset()', () => {
+describe( 'reset()', () => {
 
   it( "should reset a single field to its pristine value", () => {
     const fieldKey  = 'email';
@@ -23,7 +23,7 @@ describe( 'unset()', () => {
     const updatedLibData = { ...libData, ...data };
 
     // reset it back
-    unset( updatedLibData, fieldKey );
+    reset( updatedLibData, fieldKey );
 
     updatedData  = testStore.getState().REForms;
     const actual = updatedData[ FORMKEY_USERFORM ][ fieldKey ].value;
@@ -59,7 +59,7 @@ describe( 'unset()', () => {
     const updatedLibData = { ...libData, ...data };
 
     // reset the fields
-    unset( updatedLibData, [ fieldKey1, fieldKey2 ] );
+    reset( updatedLibData, [ fieldKey1, fieldKey2 ] );
 
     updatedData  = testStore.getState().REForms;
     const actual1 = updatedData[ FORMKEY_USERFORM ][ fieldKey1 ].value;

@@ -7,8 +7,8 @@
 [get](api.md#getfieldkey-formkey--) |
 [getForm](api.md#getformformkey--object) |
 [set](api.md#setsetdata-formkey) |
-[unset](api.md#unsetfieldkey-formkey) |
-[unsetForm](api.md#unsetformformkey) |
+[reset](api.md#resetfieldkey-formkey) |
+[resetForm](api.md#resetformformkey) |
 [isValid](api.md#isvalidfieldkey-formkey--boolean) |
 [isFormValid](api.md#isformvalidformkey--boolean) |
 [isFormDirty](api.md#isformdirtyformkey--boolean) |
@@ -119,10 +119,10 @@ A value can also be an object of other props to be updated, e.g. { disabled: tru
 | [formKey] | <code>string</code> | The formKey of the form containing the fields in setData (optional, recommended) |
 
 
-#### unset(fieldKey, [formKey])
+#### reset(fieldKey, [formKey])
 Reset a single field, or several fields, to their 'pristine' state.
 
-**Example**: <code>f.unset( 'email', 'userForm' ), or f.unset( [ 'email', 'password' ] )</code>
+**Example**: <code>f.reset( 'email', 'userForm' ), or f.reset( [ 'email', 'password' ] )</code>
  
 
 | Param | Type | Description |
@@ -131,16 +131,16 @@ Reset a single field, or several fields, to their 'pristine' state.
 | [formKey] | <code>string</code> | The fields' formKey (optional, recommended) |
 
 
-#### unsetForm(formKey)
+#### resetForm(formKey)
 Reset all field values in a single form, or reset multiple forms, to their 'pristine' state.
 If no argument is supplied, resets ALL forms.
 
-**Example**: <code>f.unsetForm( 'userForm' ), or f.unsetForm( [ 'userForm', 'profileForm' ] ), or f.unsetForm()</code>
+**Example**: <code>f.resetForm( 'userForm' ), or f.resetForm( [ 'userForm', 'profileForm' ] ), or f.resetForm()</code>
  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| formKey | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | The formKey(s) of the form(s) to be unset, or no arg to unset all |
+| formKey | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | The formKey(s) of the form(s) to be reset, or no arg to reset all |
 
 
 #### clear(fieldKey, [formKey])
@@ -213,7 +213,7 @@ To check a single field, use the 'props()' method, keying in for 'dirty'.
 
 #### setPristine(fieldKey, [formKey])
 Set a single field, or several fields, as 'pristine' per their current values.
-Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'unset()' will be referencing the current values.
+Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'reset()' will be referencing the current values.
 
 **Example**: <code>f.setPristine( 'email' ), or f.setPristine( [ 'email', 'password' ] )</code>
  
@@ -226,7 +226,7 @@ Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'unset()' will b
 
 #### setFormPristine(formKey)
 Set all fields in a single form, or in multiple forms, as 'pristine' per their current values.
-Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'unset()' will be referencing the current values.
+Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'reset()' will be referencing the current values.
 If no argument is supplied, set fields across ALL forms as 'pristine'.
 
 **Example**: <code>f.setFormPristine( 'userForm' ), or f.setFormPristine( [ 'userForm', 'profileForm' ] ), or f.setFormPristine()</code>

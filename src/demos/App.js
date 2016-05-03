@@ -532,30 +532,31 @@ const styles = {
   header: {
     backgroundColor: colAccent,
     color:           colBg,
-    height:          90,
-    paddingTop:      12
+    height:          75,
+    paddingTop:      10,
+    marginBottom:    10
   },
   headerGrid: {
     position: 'relative'
   },
   logo: {
     position: 'absolute',
-    left:     15,
-    width:    275
+    left:     10,
+    width:    250
   },
   headerTitle: {
     position: 'absolute',
-    left:     300,
-    top:      15,
-    fontSize: 32
+    left:     280,
+    top:      5,
+    fontSize: 36
   },
   gitHub: {
     position: 'absolute',
     right:    15,
-    top:      10
+    top:      5
   },
   logoGithub: {
-    width: 48
+    width: 45
   },
   mainSelect: {
     backgroundColor: colAccent,

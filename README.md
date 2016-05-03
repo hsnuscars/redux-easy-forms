@@ -125,13 +125,13 @@ When defining your schema, the following field props are relevant, though none a
 #### type: 'text' | 'tel' | 'checkbox' | 'radio' | 'select' | 'textarea'
 The type of the input element. `'text'` is default. For number fields, `'tel'` is mobile-friendly.
 
-#### multiple: true|false
+#### multiple: true | false
 `false` by default.
 
-#### disabled: true|false
+#### disabled: true | false
 `false` by default.
 
-#### value: string|number
+#### value: string | number
 Desired initial value.
 
 #### validators: Object[]

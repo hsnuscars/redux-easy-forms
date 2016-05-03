@@ -1,5 +1,4 @@
-// CSS / SASS
-require( './styles/stylesheet.scss' );              // <-- ???
+require( './styles/stylesheet.scss' );
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -7,7 +6,7 @@ import { Provider } from 'react-redux';
 import { combineReducers, compose, createStore  } from 'redux';
 
 import App from './App';
-import { REFormsReducer } from '../index';             // <--
+import { REFormsReducer } from '../index';          // <--
 
 // Redux Store
 const rootReducer = combineReducers({

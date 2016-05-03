@@ -13,6 +13,11 @@ const passwordValidators = [
   { fn: isLength, arg: { min: 4, max: undefined }, error: 'Password is too short' }
 ];
 
+const phoneValidators = [
+  { fn: ( str ) => Boolean( str ), error: 'Phone is required' },
+  { fn: isLength, arg: { min: 14, max: 14 }, error: '10-digit number required' }
+];
+
 const phoneFilters = {
   in:      trimLength( 14 ),
   display: toPhone,
@@ -23,7 +28,7 @@ export const demoSchema = {
   userForm: {
     email:    { type: 'text', value: 'matt@example.com', validators: emailValidators },
     password: { type: 'password', validators: passwordValidators },
-    phone:    { type: 'tel', filters: phoneFilters }
+    phone:    { type: 'tel', validators: phoneValidators, filters: phoneFilters }
   },
   profileForm: {
     sports:   { type: 'checkbox', multiple: true },

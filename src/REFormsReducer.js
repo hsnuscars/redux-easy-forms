@@ -90,7 +90,7 @@ export default function REFormsReducer( state={}, action ) {
         }
 
         // determine status of 'dirty' based on current valuePristine
-        fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, valuePristine ) : fieldObj.value !== valuePristine;
+        fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, fieldObj.valuePristine ) : fieldObj.value !== fieldObj.valuePristine;
 
         // update field in state copy!
         // TODO: do we even need ...rest here?

@@ -8,13 +8,21 @@ redux-easy-forms
 ### Forms got you down? Try REForms
 
 * Define your fields via a simple "schema" object
-* REForms automatically flows your form data through Redux state
-* Use a friendly API to interact with your forms and data
+* Use a friendly API to interact with your fields and data
 * Supply your own validation functions and error messages, sanitizers, filters
-* Use it with raw HTML inputs, React-Bootstrap, custom components
-* Lightweight, no dependencies, under 40Kb!
+* Use it with raw HTML inputs, React-Bootstrap, custom components*
+* Keep things lightweight -- no dependencies, under 40Kb
 
-> The intention behind REForms is a *simple* library to minimize the tedium of dealing with client-side forms. Its focus is on capturing/setting of form data, validations, and props generation. You still need to render your own inputs in JSX, write onSubmit handlers, communicate with your backend, etc.
+
+### Approach
+
+The intent behind REForms to minimize the tedium of dealing with client-side forms. It facilitates 1) props generation for JSX components, 2) getting and setting of form data, and 3) client-side fields validations, sanitization, and display filters.
+
+REForms maintains its own "private", form-specific Redux state. To get or set data into your forms, you do not access the state directly or dispatch any actions. Rather, you use the REForms API methods, i.e., `get`, `getForms`, `set`, etc.
+
+Once you extract form data via REForms, you can keep them inside your own Redux store, as you normally would. Conversely, if you fetch some data or already have some information in Redux, you would use REForms to set any such data into your fields.  
+
+In other words, you still need to define your own inputs in JSX, write onSubmit handlers, communicate with your backend, etc.
 
 > Major thanks to [@saltycrane](https://github.com/saltycrane) for initial brainstorming & contributions!
 
@@ -30,7 +38,7 @@ import { REFormsReducer } from 'redux-easy-forms';   // <---
 
 const rootReducer = combineReducers({
   REForms: REFormsReducer,                           // <---
-  /* ... */                                          // any other reducers..
+  /* ... */                                          // your other reducers..
 });
 ```
 
@@ -123,7 +131,7 @@ For the complete API, see the [API Documentation](api.md).
 When defining your schema, the following field props are relevant, though none are actually required. While an empty object will suffice, you *should* specify the `type` at least.
 
 #### type: 'text' | 'tel' | 'checkbox' | 'radio' | 'select' | 'textarea'
-The type of the input element. `'text'` is default. For number fields, `'tel'` is mobile-friendly.
+The type of the input element. `'text'` is default. *Hint:* For number fields, `'tel'` is mobile-friendly.
 
 #### multiple: true | false
 `false` by default.
@@ -135,7 +143,7 @@ The type of the input element. `'text'` is default. For number fields, `'tel'` i
 Desired initial value.
 
 #### validators: Object[]
-An array of "validator objects", each specifying the `fn` validation function, the desired `error` message, and `arg` (optional).
+An array of "validator objects", each specifying the `fn` validation function, the desired `error` message, and `arg` (optional second argument for the function).
 ```js
 [
   { fn: isRequired, error: 'Password is required' },
@@ -143,7 +151,7 @@ An array of "validator objects", each specifying the `fn` validation function, t
 ]
 ```
 
-The `fn` function will receive the input's `value` as the first argument, and `arg` as the second argument (if specified). The functions will be run per the order in the array, and any error messages accumulate in the field's `errors` prop. Use your own functions, or pull in from a suitable validation library. The [demo schema](src/demos/form-schema.js) does both.
+The `fn` function will receive the input's `value` as the first argument, and `arg` as the second argument (if provided). The functions will be run per the order in the array, and any error messages accumulate in the field's `errors` prop. Use your own functions, or pull in from a suitable validation library. The [demo schema](src/demos/form-schema.js) does both.
 
 #### filters: Object
 An object containing up to three functions:

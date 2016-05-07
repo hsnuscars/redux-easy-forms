@@ -17,6 +17,7 @@ const WARN_SET_SERVER_ERRORS = 'REForms.setFormPristine: No field to set server 
 
 /**
  * Get all relevant props for a given input field.
+ * Use this method to deliver props to your fields, or to check status of any individual prop, e.g. 'dirty', 'focused', etc.
  * For 'select' and 'textarea' inputs, the 'type' prop is not returned.
  * Example: f.props( 'email', 'userForm' )
  * @param   {string} fieldKey  - The key of the requested field

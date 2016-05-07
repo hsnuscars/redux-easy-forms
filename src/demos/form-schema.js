@@ -1,7 +1,7 @@
 import isEmail from 'validator/lib/isEmail';                  // custom or external validation functions for REForms
 import isLength from 'validator/lib/isLength';                // e.g. from https://github.com/chriso/validator.js
 
-import { trimLength, toPhone, toInt } from './filters.js';       // custom filters example
+import { trimLength, toPhone, toInt } from './filters.js';    // custom filters example
 
 const emailValidators = [
   { fn: ( str ) => Boolean( str ), error: 'Email is required' },

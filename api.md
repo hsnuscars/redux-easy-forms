@@ -18,6 +18,7 @@
 
 #### props(fieldKey, [formKey]) ⇒ <code>Object</code>
 Get all relevant props for a given input field.
+Use this method to deliver props to your fields, or to check status of any individual prop, e.g. 'dirty', 'focused', etc.
 For 'select' and 'textarea' inputs, the prop 'componentClass' (React-Bootstrap specific) replaces 'type' (causes warnings in Chrome).
 
 **Example**: <code>f.props( 'email', 'userForm' )</code>
@@ -111,7 +112,7 @@ Any incoming value will be first run through the field's "in" filter, if specifi
 A value can also be an object of other props to be updated, e.g. { disabled: true }, but tread lightly!
 
 **Example**: <code>f.set( { gender: 'female', sports: [ 'running' ] }, 'profileForm' )</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -123,7 +124,7 @@ A value can also be an object of other props to be updated, e.g. { disabled: tru
 Reset a single field, or several fields, to their 'pristine' state.
 
 **Example**: <code>f.reset( 'email', 'userForm' ), or f.reset( [ 'email', 'password' ] )</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -136,7 +137,7 @@ Reset all field values in a single form, or reset multiple forms, to their 'pris
 If no argument is supplied, resets ALL forms.
 
 **Example**: <code>f.resetForm( 'userForm' ), or f.resetForm( [ 'userForm', 'profileForm' ] ), or f.resetForm()</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -149,7 +150,7 @@ Fields defined in schema as 'multiple' are reset as empty arrays.
 Simultaneously, the 'touched' flag is also set to 'false'.
 
 **Example**: <code>f.clear( 'email', 'userForm' ), or f.clear( [ 'email', 'password' ] )</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -163,7 +164,7 @@ If no argument is supplied, clear ALL forms.
 Simultaneously, each field's 'touched' flag is also set to 'false'.
 
 **Example**: <code>f.clearForm( 'userForm' ), or f.clearForm( [ 'userForm', 'profileForm' ] ), or f.clearForm()</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -216,7 +217,7 @@ Set a single field, or several fields, as 'pristine' per their current values.
 Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'reset()' will be referencing the current values.
 
 **Example**: <code>f.setPristine( 'email' ), or f.setPristine( [ 'email', 'password' ] )</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -230,7 +231,7 @@ Both 'touched' and 'dirty' are reset; from here on, 'dirty' and 'reset()' will b
 If no argument is supplied, set fields across ALL forms as 'pristine'.
 
 **Example**: <code>f.setFormPristine( 'userForm' ), or f.setFormPristine( [ 'userForm', 'profileForm' ] ), or f.setFormPristine()</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -243,7 +244,7 @@ Server errors get cleared automatically, as soon as the field value changes.
 The error() method checks for presence of server errors before fetching validation errors.
 
 **Example**: <code>f.setErrors( { email: 'Email taken', phone: 'Invalid phone number' }, 'userForm' )</code>
- 
+
 
 | Param | Type | Description |
 | --- | --- | --- |

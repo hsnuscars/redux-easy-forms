@@ -33,7 +33,7 @@ export default function REFormsReducer( state={}, action ) {
 
         // reference correct field obj
         const fieldObj = stateClone[ formKey ][ fieldKey ];
-        const { type, multiple, valuePristine } = fieldObj;
+        const { type, multiple } = fieldObj;
 
         // change status flags only if present in new props
         if ( 'focused' in newProps ) { fieldObj.focused = newProps.focused; }
@@ -42,7 +42,7 @@ export default function REFormsReducer( state={}, action ) {
         // when 'dirty' is being explicitly updated to 'false', means we're setting 'pristine'
         // the actual 'dirty' flag is determined way below..
         if ( 'dirty' in newProps && newProps.dirty === false ) {
-          fieldObj.valuePristine = fieldObj.multiple ? [ ...fieldObj.value ] : fieldObj.value;
+          fieldObj.valuePristine = multiple ? [ ...fieldObj.value ] : fieldObj.value;
           fieldObj.touched   = false;
         }
 
@@ -67,7 +67,7 @@ export default function REFormsReducer( state={}, action ) {
           }
 
           // assign value
-          if ( !fieldObj.multiple ) {
+          if ( !multiple ) {
             fieldObj.value = valueIn;
 
           // ensure fields intended to hold multiple vals are arrays

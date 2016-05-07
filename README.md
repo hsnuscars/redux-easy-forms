@@ -3,7 +3,10 @@
 redux-easy-forms
 =================
 
+> See it in action: [REForms API Playground](http://moarwick.github.io/redux-easy-forms/)
+
 > Tread lightly, not battle-tested yet. Feedback welcome!
+
 
 ### Forms got you down? Try REForms
 
@@ -16,13 +19,11 @@ redux-easy-forms
 
 ### Approach
 
-The intent behind REForms to minimize the tedium of dealing with client-side forms. It facilitates 1) props generation for JSX components, 2) getting and setting of form data, and 3) client-side fields validations, sanitization, and display filters.
+REForms aims to simplify dealing with client-side forms. It facilitates 1) props generation for JSX components, 2) getting and setting of form data, and 3) client-side fields validations, sanitization, and display filters. You still need to define your own inputs in JSX, write onSubmit handlers, communicate with your backend, etc.
 
-REForms maintains its own "private", form-specific Redux state. To get or set data into your forms, you do not access the state directly or dispatch any actions. Rather, you use the REForms API methods, i.e., `get`, `getForms`, `set`, etc.
+While internally REForms maintains its own "private", form-specific Redux state, you do not access the state directly or dispatch any actions. Rather, it exposes a small number of handy API methods on `this.props.REForms`, e.g. `props`, `get`, `set`, `error`, while abstracting out all of the Redux business.
 
-Once you extract form data via REForms, you can keep them inside your own Redux store, as you normally would. Conversely, if you fetch some data or already have some information in Redux, you would use REForms to set any such data into your fields.  
-
-In other words, you still need to define your own inputs in JSX, write onSubmit handlers, communicate with your backend, etc.
+Once you extract form data via REForms, you can keep them inside your own Redux stores as you normally would. Conversely, if you fetch some data or already have some information in Redux, you would use REForms to set any such data into your fields.  
 
 > Major thanks to [@saltycrane](https://github.com/saltycrane) for initial brainstorming & contributions!
 

@@ -6,13 +6,23 @@ import * as __ from './utils';
 export default function REFormsReducer( state={}, action ) {
 
   switch( action.type ) {
+
     /*
      * Populate Redux with user's initial REForms data set
      * Dispatched from REFormsEnhance, prior to mounting any decorated component
+     * Ensure existing forms do not get overwritten
      */
     case REFORMS_INIT:
-      const data = _validateAll( action.data, action.fns );
-      return { ...state, ...data };
+      const data      = _validateAll( action.data, action.fns );
+      const initState = __.cloneObject( state );
+
+      for ( let formKey in data ) {
+        if ( !initState[ formKey ] ) {
+          initState[ formKey ] = data[ formKey ];
+        }
+      }
+
+      return initState;
 
 
     /*
@@ -23,7 +33,7 @@ export default function REFormsReducer( state={}, action ) {
      */
     case REFORMS_UPDATE_FIELDS:
       const { fieldUpdateList, fns } = action;
-      const stateClone = __.cloneObject( state );
+      const updatedState = __.cloneObject( state );
 
       fieldUpdateList.forEach( ( newProps ) => {
         const { formKey, fieldKey, value, ...rest } = newProps;
@@ -32,7 +42,7 @@ export default function REFormsReducer( state={}, action ) {
         const filters    = fns[ formKey ][ fieldKey ].filters || {};
 
         // reference correct field obj
-        const fieldObj = stateClone[ formKey ][ fieldKey ];
+        const fieldObj = updatedState[ formKey ][ fieldKey ];
         const { type, multiple } = fieldObj;
 
         // change status flags only if present in new props
@@ -95,11 +105,11 @@ export default function REFormsReducer( state={}, action ) {
         // update field in state copy!
         // TODO: do we even need ...rest here?
         // TODO: if so, should validate obj keys against supported props only, otherwise set can intro garb props!
-        stateClone[ formKey ][ fieldKey ] = { ...rest, ...fieldObj };
+        updatedState[ formKey ][ fieldKey ] = { ...rest, ...fieldObj };
 
       });
 
-      return stateClone;
+      return updatedState;
 
 
     /*

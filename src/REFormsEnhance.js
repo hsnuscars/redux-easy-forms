@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { initFormsAction } from './REFormsActions';
 import * as api from './REFormsAPI';
 
+import * as __ from './utils';
+
+
 /**
  * REForms HOC decorator
  */
@@ -69,30 +72,14 @@ export default function REFormsEnhance( Component, schema ) {
   )( EnhancedComponent );
 }
 
-/**
- * Clone an object or an array recursively
- */
-function cloneObjectRecursive(object) {
-  let returnObject = null;
-  if(Object.prototype.toString.call(object) === '[object Object]') {
-    returnObject = {};
-  } else if(Object.prototype.toString.call(object) === '[object Array]') {
-    returnObject = [];
-  } else {
-    return object;
-  }
-  for(let indexKey in object) {
-    returnObject[indexKey] = cloneObjectRecursive(object[indexKey]);
-  }
-  return returnObject;
-}
+
 /**
  * Parse user's schema, create a "mirror" data structure called 'fns', containing user's validators and filters
  * Add remaining expected state-related props to each field in schema
  * Return a new object, containing both data and fns
  */
 export function _parseSchema( schema ) {
-  let data = cloneObjectRecursive(schema);
+  let data = __.cloneObject( schema );
   let fns  = {};
 
   Object.keys( data ).forEach( ( formKey ) => {
@@ -115,7 +102,7 @@ export function _parseSchema( schema ) {
 
       // store initial value under 'valuePristine'
       const value = data[ formKey ][ fieldKey ].value;
-      data[ formKey ][ fieldKey ].valuePristine = fieldObj.multiple ? cloneObjectRecursive(value) : value;       // make a copy for arrays
+      data[ formKey ][ fieldKey ].valuePristine = fieldObj.multiple ? [ ...value ] : value;       // make a copy for arrays
 
     });
   });

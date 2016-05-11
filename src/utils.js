@@ -11,13 +11,11 @@ export function isEmpty( obj ) {
  */
 export function cloneObject( obj ) {
   if ( !obj || typeof obj !== 'object' ) { return obj; }
-
-  const temp = obj.constructor();
-  for ( var key in obj ) {
-    temp[ key ] = cloneObject( obj[ key ] );
+  const clonedObj = obj.constructor();
+  for ( let key in obj ) {
+    clonedObj[ key ] = cloneObject( obj[ key ] );
   }
-
-  return temp;
+  return clonedObj;
 }
 
 

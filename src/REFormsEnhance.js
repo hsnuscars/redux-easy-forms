@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { initFormsAction } from './REFormsActions';
 import * as api from './REFormsAPI';
 
+import * as __ from './utils';
+
+
 /**
  * REForms HOC decorator
  */
@@ -76,7 +79,7 @@ export default function REFormsEnhance( Component, schema ) {
  * Return a new object, containing both data and fns
  */
 export function _parseSchema( schema ) {
-  let data = { ...schema };
+  let data = __.cloneObject( schema );
   let fns  = {};
 
   Object.keys( data ).forEach( ( formKey ) => {

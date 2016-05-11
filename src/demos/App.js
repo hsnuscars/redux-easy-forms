@@ -37,7 +37,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log( 'render...' );
+    // console.log( 'render...' );
 
     const f = this.props.REForms;                   // <-- bring in API (good idea to shorten)
     const { inputs, method } = this.state;

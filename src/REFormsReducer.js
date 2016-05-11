@@ -6,13 +6,25 @@ import * as __ from './utils';
 export default function REFormsReducer( state={}, action ) {
 
   switch( action.type ) {
+
     /*
      * Populate Redux with user's initial REForms data set
      * Dispatched from REFormsEnhance, prior to mounting any decorated component
+     * Ensure existing forms do not get overwritten
      */
     case REFORMS_INIT:
-      const data = _validateAll( action.data, action.fns );
-      return { ...state, ...data };
+      {
+        const data        = _validateAll( action.data, action.fns );
+        const clonedState = __.cloneObject( state );
+
+        for ( let formKey in data ) {
+          if ( !clonedState[ formKey ] ) {
+            clonedState[ formKey ] = data[ formKey ];
+          }
+        }
+
+        return clonedState;
+      }
 
 
     /*
@@ -22,84 +34,86 @@ export default function REFormsReducer( state={}, action ) {
      * If updating value, it will be run through: 1) in-formatters, 2) validators (if any)
      */
     case REFORMS_UPDATE_FIELDS:
-      const { fieldUpdateList, fns } = action;
-      const stateClone = __.cloneObject( state );
+      {
+        const { fieldUpdateList, fns } = action;
+        const clonedState = __.cloneObject( state );
 
-      fieldUpdateList.forEach( ( newProps ) => {
-        const { formKey, fieldKey, value, ...rest } = newProps;
+        fieldUpdateList.forEach( ( newProps ) => {
+          const { formKey, fieldKey, value, ...rest } = newProps;
 
-        const validators = fns[ formKey ][ fieldKey ].validators;
-        const filters    = fns[ formKey ][ fieldKey ].filters || {};
+          const validators = fns[ formKey ][ fieldKey ].validators;
+          const filters    = fns[ formKey ][ fieldKey ].filters || {};
 
-        // reference correct field obj
-        const fieldObj = stateClone[ formKey ][ fieldKey ];
-        const { type, multiple } = fieldObj;
+          // reference correct field obj
+          const fieldObj = clonedState[ formKey ][ fieldKey ];
+          const { type, multiple } = fieldObj;
 
-        // change status flags only if present in new props
-        if ( 'focused' in newProps ) { fieldObj.focused = newProps.focused; }
-        if ( 'touched' in newProps ) { fieldObj.touched = newProps.touched; }
+          // change status flags only if present in new props
+          if ( 'focused' in newProps ) { fieldObj.focused = newProps.focused; }
+          if ( 'touched' in newProps ) { fieldObj.touched = newProps.touched; }
 
-        // when 'dirty' is being explicitly updated to 'false', means we're setting 'pristine'
-        // the actual 'dirty' flag is determined way below..
-        if ( 'dirty' in newProps && newProps.dirty === false ) {
-          fieldObj.valuePristine = multiple ? [ ...fieldObj.value ] : fieldObj.value;
-          fieldObj.touched   = false;
-        }
-
-        // check for serverErrors, ensure stored as array
-        if ( 'serverErrors' in newProps ) {
-          const serverErrors = newProps.serverErrors === '' ? [] : __.toArray( newProps.serverErrors );
-          fieldObj.serverErrors = serverErrors;
-        }
-
-        // handle value updates
-        if ( _isValidTypeValue( value, type, multiple ) ) {
-          let valueIn = value;
-
-          // if in-filter specified, apply it
-          if ( filters.in ) {
-            if ( Array.isArray( value ) ) {
-              valueIn = value.map( val => filters.in( val ) );
-
-            } else {
-              valueIn = filters.in( value );
-            }
+          // when 'dirty' is being explicitly updated to 'false', means we're setting 'pristine'
+          // the actual 'dirty' flag is determined way below..
+          if ( 'dirty' in newProps && newProps.dirty === false ) {
+            fieldObj.valuePristine = multiple ? [ ...fieldObj.value ] : fieldObj.value;
+            fieldObj.touched   = false;
           }
 
-          // assign value
-          if ( !multiple ) {
-            fieldObj.value = valueIn;
+          // check for serverErrors, ensure stored as array
+          if ( 'serverErrors' in newProps ) {
+            const serverErrors = newProps.serverErrors === '' ? [] : __.toArray( newProps.serverErrors );
+            fieldObj.serverErrors = serverErrors;
+          }
 
-          // ensure fields intended to hold multiple vals are arrays
-          } else {
-            // if trying to set a '', turn it into a []
-            if ( valueIn === '' ) {
-              fieldObj.value = [];
+          // handle value updates
+          if ( _isValidTypeValue( value, type, multiple ) ) {
+            let valueIn = value;
 
-            // if trying to set a single value into a multiple field, toggle it in/out of current array
-            } else if ( !Array.isArray( valueIn ) ) {
-              fieldObj.value = __.toggle( fieldObj.value, valueIn );
+            // if in-filter specified, apply it
+            if ( filters.in ) {
+              if ( Array.isArray( value ) ) {
+                valueIn = value.map( val => filters.in( val ) );
 
-            } else {
+              } else {
+                valueIn = filters.in( value );
+              }
+            }
+
+            // assign value
+            if ( !multiple ) {
               fieldObj.value = valueIn;
+
+            // ensure fields intended to hold multiple vals are arrays
+            } else {
+              // if trying to set a '', turn it into a []
+              if ( valueIn === '' ) {
+                fieldObj.value = [];
+
+              // if trying to set a single value into a multiple field, toggle it in/out of current array
+              } else if ( !Array.isArray( valueIn ) ) {
+                fieldObj.value = __.toggle( fieldObj.value, valueIn );
+
+              } else {
+                fieldObj.value = valueIn;
+              }
             }
+
+            // run validations, assign errors
+            fieldObj.errors = _validate( valueIn, validators );
           }
 
-          // run validations, assign errors
-          fieldObj.errors = _validate( valueIn, validators );
-        }
+          // determine status of 'dirty' based on current valuePristine
+          fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, fieldObj.valuePristine ) : fieldObj.value !== fieldObj.valuePristine;
 
-        // determine status of 'dirty' based on current valuePristine
-        fieldObj.dirty = multiple ? !__.isEqualArrays( fieldObj.value, fieldObj.valuePristine ) : fieldObj.value !== fieldObj.valuePristine;
+          // update field in state copy!
+          // TODO: do we even need ...rest here?
+          // TODO: if so, should validate obj keys against supported props only, otherwise set can intro garb props!
+          clonedState[ formKey ][ fieldKey ] = { ...rest, ...fieldObj };
 
-        // update field in state copy!
-        // TODO: do we even need ...rest here?
-        // TODO: if so, should validate obj keys against supported props only, otherwise set can intro garb props!
-        stateClone[ formKey ][ fieldKey ] = { ...rest, ...fieldObj };
+        });
 
-      });
-
-      return stateClone;
+        return clonedState;
+      }
 
 
     /*

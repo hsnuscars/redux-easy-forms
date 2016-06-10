@@ -24,7 +24,7 @@ const styles = {
     display:         'block',
     backgroundColor: 'transparent',
     color:           colAccent,
-    paddingBottom:   10,
+    padding:         '0 0 10px 0',
     opacity:         0.65
   }
 };

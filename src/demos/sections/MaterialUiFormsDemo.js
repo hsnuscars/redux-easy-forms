@@ -9,34 +9,18 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import { colAccent } from '../App';
-
-const injectTouchTapEvent = require('react-tap-event-plugin');
-injectTouchTapEvent();
+import { colAccent, colBgDark } from '../App';
 
 // some minimalist inline styling (for demo purposes)
 const styles = {
-  block: {
-    display: 'block',
-    width:   '100%'
-  },
-  rowMargin: {
-    marginTop: '10px'
-  },
-  error: {
-    fontSize: '14px',
-    color:     'maroon',
-    marginTop: 0
-  },
-  label: {
-    display:    'block',
-    fontWeight: 'normal'
+  textFieldWrapper: {
+    height: 75
   },
   code: {
     display:         'block',
     backgroundColor: 'transparent',
     color:           colAccent,
-    paddingBottom:   10,
+    padding:         '0 0 10px 0',
     opacity:         0.65
   }
 };
@@ -45,6 +29,7 @@ const styles = {
 export default class MaterialUiFormsDemo extends React.Component {
 
   render() {
+
     const f = this.props.REForms;
 
     return (
@@ -57,26 +42,36 @@ export default class MaterialUiFormsDemo extends React.Component {
         </Row>
         <Row>
           <Col xs={ 12 } >
-            <TextField
-              hintText="Email"
-              errorText={ f.error( 'email' ) }
-              { ...f.props( 'email' ) }
-            />
+            <div style={ styles.textFieldWrapper }>
+              <TextField
+                floatingLabelText="Email"
+                errorText={ f.error( 'email' ) }
+                { ...f.props( 'email' ) }
+                underlineStyle={ { borderColor: colBgDark } }
+              />
+            </div>
 
-            <TextField
-              hintText="Password"
-              errorText={ f.error( 'password' ) }
-              { ...f.props( 'password' ) }
-            />
+            <div style={ styles.textFieldWrapper }>
+              <TextField
+                floatingLabelText="Password"
+                errorText={ f.error( 'password' ) }
+                { ...f.props( 'password' ) }
+                underlineStyle={ { borderColor: colBgDark } }
+              />
+            </div>
 
-            <TextField
-              hintText="Phone Number"
-              errorText={ f.error( 'phone' ) }
-              { ...f.props( 'phone' ) }
-            />
-
+            <div style={ styles.textFieldWrapper }>
+              <TextField
+                floatingLabelText="Phone Number"
+                errorText={ f.error( 'phone' ) }
+                { ...f.props( 'phone' ) }
+                underlineStyle={ { borderColor: colBgDark } }
+              />
+            </div>
           </Col>
         </Row>
+
+        <br/><br/>
 
         <Row>
           <Col xs={ 12 } >
@@ -116,37 +111,33 @@ export default class MaterialUiFormsDemo extends React.Component {
           </Col>
         </Row>
 
-        <Row style={{ marginTop: '10px' }}>
+        <Row style={{ marginTop: 20 }}>
           <Col xs={ 12 }>
             <label>Select</label>
             <br/>
 
-            <SelectField { ...f.props( 'make' ) } >
+            <SelectField { ...f.props( 'make' ) }
+              underlineStyle={ {borderColor: '#ab9569'} }
+              iconStyle={ {fill: '#ab9569'} }
+            >
               <MenuItem value="acura" primaryText="Acura" />
               <MenuItem value="buick" primaryText="Buick" />
               <MenuItem value="chrysler" primaryText="Chrysler" />
             </SelectField>
 
-            <select
-              style={ styles.block }
-              { ...f.props( 'make' ) }
-            >
-              <option value="acura">Acura</option>
-              <option value="buick">Buick</option>
-              <option value="chrysler">Chrysler</option>
-            </select>
+            <br/><br/>
 
-            <br/>
             <label>Select Multiple</label>
             <br/>
-            <select
-              style={ styles.block }
-              { ...f.props( 'upgrades' ) }
-            >
-              <option value="audio">Premium Audio</option>
-              <option value="leather">Leather Interior</option>
-              <option value="wheels">Wheel Caps</option>
-            </select>
+
+            <em>Not supported in Material-UI </em>
+            {/*
+            <SelectField { ...f.props( 'upgrades' ) } >
+              <MenuItem value="audio" primaryText="Premium Audio" />
+              <MenuItem value="leather" primaryText="Leather Interior" />
+              <MenuItem value="wheels" primaryText="Wheel Caps" />
+            </SelectField>
+            */}
           </Col>
         </Row>
         </div>

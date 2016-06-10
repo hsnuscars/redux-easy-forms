@@ -56,7 +56,7 @@ export default function REFormsReducer( state={}, action ) {
           // the actual 'dirty' flag is determined way below..
           if ( 'dirty' in newProps && newProps.dirty === false ) {
             fieldObj.valuePristine = multiple ? [ ...fieldObj.value ] : fieldObj.value;
-            fieldObj.touched   = false;
+            fieldObj.touched = false;
           }
 
           // check for serverErrors, ensure stored as array

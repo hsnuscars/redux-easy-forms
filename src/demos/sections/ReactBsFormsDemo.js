@@ -16,8 +16,8 @@ const styles = {
   code: {
     display:         'block',
     backgroundColor: 'transparent',
-    color:            colAccent,
-    paddingBottom:   10,
+    color:           colAccent,
+    padding:         '0 0 10px 0',
     opacity:         0.65
   }
 };

@@ -621,19 +621,17 @@ function _getEventListeners( dispatch, formKey, fieldKey, fns ) {
     },
 
     onChange: ( e, index, val ) => {
-      console.log( 'onChange:', formKey, '>', fieldKey, ':', e, index, val );
-
-      // normally we grab value from e.target, but in Material UI it comes in as the 3rd arg
+      console.log( 'onChange:', formKey, '>', fieldKey, ':', e.target.value, index, val );
+      // normally we grab value from the 1st arg (e), but in Material UI it comes in as the 3rd arg
       const value = typeof val !== 'undefined' ? val : e.target.value;
-
-      // any serverErrors get cleared as soon as user invokes input change...
+      // as user invokes input change, we also clear any existing serverErrors..
       dispatch( updateFieldsAction( [ { formKey, fieldKey, value: value, serverErrors: '' } ], fns ));
     },
 
-    // specific to Material UI checkboxes & radios
+    // for Material UI-specific checkboxes & radios
     onCheck: ( e, isChecked ) => {
-      console.log( 'onCheck:', formKey, '>', fieldKey, ':', e, isChecked );
-      dispatch( updateFieldsAction( [ { formKey, fieldKey, value: isChecked, serverErrors: '' } ], fns ));
+      // console.log( 'onCheck:', formKey, '>', fieldKey, ':', e.target.value, isChecked );
+      dispatch( updateFieldsAction( [ { formKey, fieldKey, value: e.target.value, serverErrors: '' } ], fns ));
     },
 
     onBlur: () => {

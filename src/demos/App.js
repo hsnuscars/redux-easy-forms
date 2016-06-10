@@ -27,7 +27,7 @@ class App extends React.Component {
 
     // initial demo settings
     this.state = {
-      inputs:       'mat-ui',
+      inputs:       'react-bs',
       method:       'getForm',
       fieldKey:     'email',
       formKey:      '',

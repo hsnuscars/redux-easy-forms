@@ -21,6 +21,10 @@ const createStoreWithMiddleware = compose(
 
 const store = createStoreWithMiddleware( rootReducer );
 
+// for Material-UI
+const injectTouchTapEvent = require('react-tap-event-plugin');
+injectTouchTapEvent();
+
 // App
 ReactDOM.render((
   <div>

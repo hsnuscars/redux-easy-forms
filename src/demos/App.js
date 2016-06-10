@@ -5,6 +5,7 @@ import { Grid, Row, Col, Form, InputGroup, FormGroup, FormControl, Button } from
 
 import HtmlFormsDemo from './sections/HtmlFormsDemo';
 import ReactBsFormsDemo from './sections/ReactBsFormsDemo';
+import MaterialUiFormsDemo from './sections/MaterialUiFormsDemo';
 
 import { REFormsEnhance } from '../index';         // <--- REForms HOC decorator
 
@@ -26,7 +27,7 @@ class App extends React.Component {
 
     // initial demo settings
     this.state = {
-      inputs:       'react-bs',
+      inputs:       'mat-ui',
       method:       'getForm',
       fieldKey:     'email',
       formKey:      '',
@@ -68,11 +69,13 @@ class App extends React.Component {
                 >
                   <option value="html">Raw HTML</option>
                   <option value="react-bs">React-Bootstrap</option>
+                  <option value="mat-ui">Material UI</option>
                 </FormControl>
               </FormGroup>
 
-              { inputs === 'html'     && <HtmlFormsDemo    REForms={ f } /> }
+              { inputs === 'html'     && <HtmlFormsDemo REForms={ f } /> }
               { inputs === 'react-bs' && <ReactBsFormsDemo REForms={ f } /> }
+              { inputs === 'mat-ui'   && <MaterialUiFormsDemo REForms={ f } /> }
             </Col>
 
             <Col sm={ 8 } xs={ 12 } style={ styles.containerApi }>

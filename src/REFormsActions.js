@@ -1,5 +1,6 @@
 export const REFORMS_INIT          = 'REFORMS_INIT';
 export const REFORMS_UPDATE_FIELDS = 'REFORMS_UPDATE_FIELDS';
+export const REFORMS_DROP          = 'REFORMS_DROP';
 
 
 export function initFormsAction( data, fns ) {
@@ -15,5 +16,12 @@ export function updateFieldsAction( fieldUpdateList, fns ) {
     type: REFORMS_UPDATE_FIELDS,
     fieldUpdateList,
     fns
+  };
+}
+
+export function dropFormsAction( dropFormKeys ) {
+  return {
+    type: REFORMS_DROP,
+    dropFormKeys
   };
 }

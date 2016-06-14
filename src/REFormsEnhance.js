@@ -58,7 +58,8 @@ export default function REFormsEnhance( Component, schema ) {
         isFormDirty:     _apiEnhance( api.isFormDirty,     libData ),
         setPristine:     _apiEnhance( api.setPristine,     libData ),
         setFormPristine: _apiEnhance( api.setFormPristine, libData ),
-        setServerErrors: _apiEnhance( api.setServerErrors, libData )
+        setServerErrors: _apiEnhance( api.setServerErrors, libData ),
+        drop:            _apiEnhance( api.drop, libData )
       };
 
       return <Component REForms={ enhancedAPI } { ...rest } />;

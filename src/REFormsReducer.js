@@ -1,4 +1,4 @@
-import { REFORMS_INIT, REFORMS_UPDATE_FIELDS } from './REFormsActions';
+import { REFORMS_INIT, REFORMS_UPDATE_FIELDS, REFORMS_DROP } from './REFormsActions';
 
 import * as __ from './utils';
 
@@ -115,6 +115,27 @@ export default function REFormsReducer( state={}, action ) {
         return clonedState;
       }
 
+    /*
+     * Drop user's REForms data set from Redux
+     */
+    case REFORMS_DROP:
+      {
+        const dropFormKeys = action.dropFormKeys;
+        let clonedState    = __.cloneObject( state );
+
+        // no arg means drop all forms.
+        if(!dropFormKeys) return {};
+
+        if( Array.isArray(dropFormKeys) ) {
+          dropFormKeys.forEach( (dropFormKey) => {
+            delete clonedState[dropFormKey];
+          });
+        } else {
+          delete clonedState[dropFormKeys];
+        }
+
+        return clonedState;
+      }
 
     /*
      * Fallback

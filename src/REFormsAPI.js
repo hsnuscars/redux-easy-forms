@@ -1,4 +1,4 @@
-import { updateFieldsAction } from './REFormsActions';
+import { updateFieldsAction, dropFormsAction } from './REFormsActions';
 import * as __ from './utils';
 
 /* -------------------- CONST -------------------- */
@@ -367,6 +367,16 @@ export function setServerErrors( libData, setData={}, formKey='' ) {
   _dispatchUpdateFieldsAction( dispatch, fieldSetList, fns, WARN_SET_SERVER_ERRORS );
 }
 
+/**
+ * Drop Form data from Redux.
+ * Example: f.drop( 'userForm' ) or f.drop( ['userForm', 'profileForm'] )
+ * @param {(string|string[])} [formKeys] - The formKey(s) of the form(s) data to be dropped, or no arg to drop all.
+ */
+export function drop( libData, formKeys='' ) {
+  const { dispatch } = libData;
+
+  dispatch( dropFormsAction( formKeys ) );
+}
 
 /* -------------------- PRIVATE API HELPERS -------------------- */
 
